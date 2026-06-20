@@ -1,5 +1,6 @@
 # Environmental Destruction Demo  
-**xX_UNFINISHED AS HELL DISCLAIMER_Xx THE CURRENT VERSION DOES NOT REPRESENT OF THE FINAL PROJECT**  
+### - xX_UNFINISHED AS HELL DISCLAIMER_Xx  
+> **THE CURRENT VERSION DOES NOT REPRESENT OF THE FINAL PROJECT**  
 ### - about  
 > this is a small first person shooter demo showcasing my procedural destruction system built on top of godot 4.7  
 > also includes many systems developed for my game ***S.U.F.F.E.R.***  
