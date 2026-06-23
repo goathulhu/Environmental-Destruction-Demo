@@ -9,7 +9,8 @@ public partial class DestructionManager : Node
 	
 	[Export] PackedScene[] Destructions;
 	
-	private Collapsable[] CollapsableQueue = new Collapsable[64];
+	private ICollapsable[] CollapsableQueue = new ICollapsable[64];
+	//private Collapsable[] CollapsableQueue = new Collapsable[64];
 	private bool HasQueuedCollapsables = false;
 	private int CurrentCollapsables = 0;
 	private PhysicsCollapsable[] PhysicsCollapsableQueue = new PhysicsCollapsable[64];
@@ -31,96 +32,29 @@ public partial class DestructionManager : Node
 	public override void _Process(double delta)
 	{
 		if (HasQueuedCollapsables) CycleCollapsables();
-		if (HasQueuedPhysicsCollapsables) CyclePhysicsCollapsables();
 		if (HasQueuedDestructions) CycleDestructions();
 	}
 	
-	public void New((Vector3 At, string Type, float ScaleMult)[] NewDests)
+	// --------------------------------------------------
+	// destructions
+	// --------------------------------------------------
+	public void QueueDestruction((Vector3 At, string Type, float ScaleMult)[] Dests)
 	{
-		CurrentDestructions += NewDests.Length;
+		CurrentDestructions += Dests.Length;
 		for (int I = 0; I < CurrentDestructions; I++)
 		{
-			DestructibleQueue[CurrentDestructions - 1 - I] = NewDests[I];
+			DestructibleQueue[CurrentDestructions - 1 - I] = Dests[I];
 		}
 		
 		HasQueuedDestructions = true;
 	}
 	
-	public void New(Vector3 At, string Type, float ScaleMult = 1f)
+	public void QueueDestruction(Vector3 At, string Type, float ScaleMult = 1f)
 	{
 		CurrentDestructions += 1;
 		DestructibleQueue[CurrentDestructions - 1] = (At, Type, ScaleMult);
 		
 		HasQueuedDestructions = true;
-	}
-	
-	private void QueueCollapsable(Collapsable Coll)
-	{
-		for (int I = 0; I < CurrentCollapsables; I++)
-		{
-			if (CollapsableQueue[I] == Coll) return;
-		}
-		
-		CurrentCollapsables += 1;
-		CollapsableQueue[CurrentCollapsables - 1] = Coll;
-		
-		HasQueuedCollapsables = true;
-	}
-	
-	private void CycleCollapsables()
-	{
-		for (int I = 0; I < CurrentCollapsables; I++)
-		{
-			CollapsableQueue[I].New();
-		}
-		
-		CurrentCollapsables = 0;
-		HasQueuedCollapsables = false;
-	}
-	
-	public void QueuePhysicsCollapsable(PhysicsCollapsable[] Coll)
-	{
-		foreach (PhysicsCollapsable PhysColl in Coll)
-		{
-			bool NotFound = true;
-			
-			for (int I = 0; I < CurrentPhysicsCollapsables; I++)
-			{
-				if (PhysicsCollapsableQueue[I] == PhysColl) NotFound = false;
-			}
-			
-			if (NotFound)
-			{
-				CurrentPhysicsCollapsables += 1;
-				PhysicsCollapsableQueue[CurrentPhysicsCollapsables - 1] = PhysColl;
-			}
-		}
-		
-		HasQueuedPhysicsCollapsables = true;
-	}
-	
-	public void QueuePhysicsCollapsable(PhysicsCollapsable Coll)
-	{
-		for (int I = 0; I < CurrentPhysicsCollapsables; I++)
-		{
-			if (PhysicsCollapsableQueue[I] == Coll) return;
-		}
-		
-		CurrentPhysicsCollapsables += 1;
-		PhysicsCollapsableQueue[CurrentPhysicsCollapsables - 1] = Coll;
-		
-		HasQueuedPhysicsCollapsables = true;
-	}
-	
-	private void CyclePhysicsCollapsables()
-	{
-		for (int I = 0; I < CurrentPhysicsCollapsables; I++)
-		{
-			PhysicsCollapsableQueue[I].New();
-		}
-		
-		CurrentPhysicsCollapsables = 0;
-		HasQueuedPhysicsCollapsables = false;
 	}
 	
 	private void CycleDestructions()
@@ -140,14 +74,61 @@ public partial class DestructionManager : Node
 				foreach (Node Hit in Hits)
 				{
 					if (Hit is Destructible) ((Destructible)Hit).New(QueDest.At, Orientation, Dest.Scene, QueDest.ScaleMult);
-					else if (Hit is PhysicsCollapsable) QueuePhysicsCollapsable((PhysicsCollapsable)Hit);
-					else if (Hit is Collapsable) QueueCollapsable((Collapsable)Hit);
+					else if (Hit is ICollapsable) QueueCollapsable((ICollapsable)Hit);
 				}
 			}
 		}
 		
 		CurrentDestructions = 0;
 		HasQueuedDestructions = false;
+	}
+	
+	// --------------------------------------------------
+	// collapsables
+	// --------------------------------------------------
+	public void QueueCollapsable(ICollapsable[] Colls)
+	{
+		foreach (ICollapsable Coll in Colls)
+		{
+			bool NotFound = true;
+			
+			for (int I = 0; I < CurrentCollapsables; I++)
+			{
+				if (CollapsableQueue[I] == Coll) NotFound = false;
+			}
+			
+			if (NotFound)
+			{
+				CurrentCollapsables += 1;
+				CollapsableQueue[CurrentCollapsables - 1] = Coll;
+			}
+		}
+		
+		HasQueuedCollapsables = true;
+	}
+	
+	private void QueueCollapsable(ICollapsable Coll)
+	{
+		for (int I = 0; I < CurrentCollapsables; I++)
+		{
+			if (CollapsableQueue[I] == Coll) return;
+		}
+		
+		CurrentCollapsables += 1;
+		CollapsableQueue[CurrentCollapsables - 1] = Coll;
+		
+		HasQueuedCollapsables = true;
+	}
+	
+	private void CycleCollapsables()
+	{
+		for (int I = 0; I < CurrentCollapsables; I++)
+		{
+			CollapsableQueue[I].Tag();
+		}
+		
+		CurrentCollapsables = 0;
+		HasQueuedCollapsables = false;
 	}
 	
 	private (bool Success, PackedScene Scene) GetDestruction(string Type)

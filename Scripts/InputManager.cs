@@ -87,7 +87,7 @@ public partial class InputManager : Node
 
 		return false;
 	}
-
+	
 	public bool Hold(string Action)
 	{
 		foreach (InputBind BIND in Binds)

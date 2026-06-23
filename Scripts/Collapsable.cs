@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class Collapsable : Node3D
+public partial class Collapsable : Node3D, ICollapsable
 {
 	protected GameManager GameManager;
 	
@@ -24,7 +24,7 @@ public partial class Collapsable : Node3D
 		if (PlsDie && !Died) CommitDie();
 	}
 	
-	public void New()
+	void ICollapsable.Tag()
 	{
 		if (PlsDie) return;
 		
@@ -33,7 +33,7 @@ public partial class Collapsable : Node3D
 			if (CheckProbe(Probe)) return;
 		}
 		
-		if (Dest != "") GameManager.DestructionManager.New(GlobalPosition, Dest);
+		if (Dest != "") GameManager.DestructionManager.QueueDestruction(GlobalPosition, Dest);
 		
 		PlsDie = true;
 	}

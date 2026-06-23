@@ -57,7 +57,7 @@ public partial class Projectile : Node3D
 		var Result = GameManager.Raycast(LastPos, InternalPosition);
 		if (Result.DidHit)
 		{
-			GameManager.DestructionManager.New(Result.Position, "DestructionBlob");
+			GameManager.DestructionManager.QueueDestruction(Result.Position, "DestructionBlob");
 			
 			if (Bounces <= 0 || Result.Collider is Destructible)
 			{

@@ -364,7 +364,7 @@ public partial class Player : Node3D
 			if (Landed > 0)
 			{
 				Array.Resize(ref Hits, Landed);
-				DestructionManager.New(Hits);
+				DestructionManager.QueueDestruction(Hits);
 			}
 		}
 	}
