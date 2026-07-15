@@ -17,8 +17,10 @@ public abstract partial class Item : Node3D
 	[Export] public string Id = "ItemId";
 	
 	private bool Active = false;
+	private float ActionTimer = 0f;
 	private ItemAction CurrentAction;
 	private ItemAction QueuedAction;
+	private ItemAction EmptyAction = new ItemAction();
 	
 	public override void _Ready()
 	{
@@ -30,6 +32,9 @@ public abstract partial class Item : Node3D
 		DestructionManager = GameManager.DestructionManager;
 		Hud = GameManager.Hud;
 		Viewmodel = GameManager.Viewmodel;
+		
+		CurrentAction = EmptyAction;
+		QueuedAction = EmptyAction;
 	}
 	
 	public override void _Process(double delta)
@@ -48,9 +53,30 @@ public abstract partial class Item : Node3D
 	
 	private void ProgressAction()
 	{
-		CurrentAction.Duration -= DeltaTime;
+		ActionTimer += DeltaTime;
 		
-		if (CurrentAction.Duration <= 0f && QueuedAction.Name != "") PlayAction(QueuedAction);
+		//if (CurrentAction.HasEvents)
+		//if (CurrentAction.Events.Length != 0 )
+		if (CurrentAction.Events != null && CurrentAction.Events != EmptyAction.Events)
+		{
+			foreach (ItemEvent Event in CurrentAction.Events)
+			{
+				if (!Event.Triggered)
+				{
+					if (ActionTimer <= Event.TriggerTime)
+					{
+						EventCallback(Event.Name);
+						Event.Triggered = true;
+					}
+				}
+			}
+		}
+		
+		if (ActionTimer >= CurrentAction.Duration) 
+		{
+			if (QueuedAction.Name != "") PlayAction(QueuedAction);
+			else PlayAction(EmptyAction);
+		}
 	}
 	
 	public void SetActive(bool NewActive)
@@ -71,7 +97,9 @@ public abstract partial class Item : Node3D
 	public void PlayAction(ItemAction NewAction)
 	{
 		CurrentAction = NewAction;
+		ActionTimer = 0f;
 		if (NewAction.Override != null && NewAction.Animation != "") NewAction.Override.Play(NewAction.Animation);
+		QueuedAction = EmptyAction;
 	}
 	
 	protected virtual void EventCallback(string EventName)

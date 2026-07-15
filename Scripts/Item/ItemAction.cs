@@ -7,6 +7,7 @@ public class ItemAction
 	public float Duration = 0f;
 	public ViewmodelOverride Override = null;
 	public string Animation = "";
+	public bool HasEvents = false;
 	public ItemEvent[] Events = new ItemEvent[0];
 	
 	// full
@@ -16,14 +17,7 @@ public class ItemAction
 		Duration = NewDuration;
 		Override = NewOverride;
 		Animation = NewAnimation;
-		Events = NewEvents;
-	}
-	
-	// event only
-	public ItemAction(string NewName, float NewDuration, ItemEvent[] NewEvents)
-	{
-		Name = NewName;
-		Duration = NewDuration;
+		HasEvents = true;
 		Events = NewEvents;
 	}
 	
@@ -34,5 +28,20 @@ public class ItemAction
 		Duration = NewDuration;
 		Override = NewOverride;
 		Animation = NewAnimation;
+	}
+	
+	// event only
+	public ItemAction(string NewName, float NewDuration, ItemEvent[] NewEvents)
+	{
+		Name = NewName;
+		Duration = NewDuration;
+		HasEvents = true;
+		Events = NewEvents;
+	}
+	
+	// none
+	public ItemAction()
+	{
+		
 	}
 }

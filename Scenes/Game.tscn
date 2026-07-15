@@ -1735,7 +1735,6 @@ TextLabel = NodePath("Control/ConsoleLog")
 TextField = NodePath("Control/ConsoleLine")
 
 [node name="Control" type="Control" parent="Console" unique_id=764357153]
-visible = false
 layout_mode = 3
 anchors_preset = 2
 anchor_top = 1.0
@@ -1751,7 +1750,7 @@ anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = 16.0
 offset_top = -1088.0
-offset_right = 1040.0
+offset_right = 528.0
 offset_bottom = -64.0
 grow_horizontal = 2
 grow_vertical = 0
@@ -1958,7 +1957,6 @@ far = 256.0
 [node name="Director" type="Node3D" parent="Player/PlayerView/CameraMotionGlobal/CamRotY/CamRotX/CameraMotionLocal/Camera/SpreadR" unique_id=960632119]
 
 [node name="Viewmodel" type="Node3D" parent="Player/PlayerView/CameraMotionGlobal/CamRotY/CamRotX/CameraMotionLocal" unique_id=2143233611 node_paths=PackedStringArray("ArmLeft", "ArmRight", "ShotgunOverride")]
-visible = false
 script = ExtResource("13_4q8tf")
 ArmLeft = NodePath("Arms/LeftArm")
 ArmRight = NodePath("Arms/RightArm")

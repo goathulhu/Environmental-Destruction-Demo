@@ -27,15 +27,23 @@ public partial class Console : Node
 		Player = (Player)GetTree().Root.FindChild("Player", true, false);
 		
 		Log(Name, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", Lt.Raw);
-		Log(Name, "[color=darkgray]------------------------------------------", Lt.Raw);
-		Log(Name, "[color=darkgray]running", Lt.Raw);
-		Log(Name, "[color=darkgray] _____  _____  _____  _____  _____  _____ ", Lt.Raw);
-		Log(Name, "[color=darkgray]|   __||  |  ||   __||   __||   __|| __  |", Lt.Raw);
-		Log(Name, "[color=darkgray]|__   ||  |  ||   __||   __||   __||    -|", Lt.Raw);
-		Log(Name, "[color=darkgray]|_____||_____||__|   |__|   |_____||__|__|", Lt.Raw);
-		Log(Name, "[color=darkgray]                            pre-alpha v0.1", Lt.Raw);
-		Log(Name, "[color=darkgray]------------------------------------------", Lt.Raw);
-		Log(Name, "[color=darkgray]type \"help;\" to get a list of available commands", Lt.Raw);
+		Log(Name, "[color=darkgray]               running ---------------------,", Lt.Raw);
+		Log(Name, "[color=darkgray]               ,----,-,,-,----,----,----,----,", Lt.Raw);
+		Log(Name, "[color=darkgray]               |  --| || |  --|  --|  --| -  |", Lt.Raw);
+		Log(Name, "[color=darkgray]               |--  | '' | ,--| ,--|  --|   -|", Lt.Raw);
+		Log(Name, "[color=darkgray]               '----'----'-'  '-'  '----'-'--'", Lt.Raw);
+		Log(Name, "[color=darkgray]                '-------------- pre-alpha v0.1", Lt.Raw);
+		Log(Name, "", Lt.Raw);
+		Log(Name, "[color=darkgray] ,-systems-----", Lt.Raw);
+		Log(Name, "[color=darkgray] | Godot Engine v4.7", Lt.Raw);
+		Log(Name, "[color=darkgray] | Ruptage Destruction v1", Lt.Raw);
+		Log(Name, "[color=darkgray] '                                           -----licenses-,", Lt.Raw);
+		Log(Name, "[color=darkgray]                    see \\Licenses\\README.txt for more info |", Lt.Raw);
+		Log(Name, "[color=darkgray] ,-tips-----                                               '", Lt.Raw);
+		Log(Name, "[color=darkgray] | shoot the walls          please", Lt.Raw);
+		Log(Name, "[color=darkgray] | type \"help;\" for a list of available commands", Lt.Raw);
+		Log(Name, "[color=darkgray] | for more projects or demos check my itch and github", Lt.Raw);
+		Log(Name, "[color=darkgray] '", Lt.Raw);
 		
 		EndEdit();
 		UpdateLog();
