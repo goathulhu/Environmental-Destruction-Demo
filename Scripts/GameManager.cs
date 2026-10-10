@@ -76,7 +76,8 @@ public partial class GameManager : Node3D
 		HowManyFps++;
 		if (FpsTimer >= 0.2f)
 		{
-			FpsLabel.Text = "[color=666666]" + (int)(CumFps / HowManyFps) + "fps " + DeltaTime * 1000f + "ms ";
+			//FpsLabel.Text = "[color=666666]" + (int)(CumFps / HowManyFps) + "fps\n" + DeltaTime * 1000f + "ms";
+			FpsLabel.Text = (int)(CumFps / HowManyFps) + "fps\n" + DeltaTime * 1000f + "ms";
 			CumFps = 0f;
 			HowManyFps = 0;
 			FpsTimer = 0f;

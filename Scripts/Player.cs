@@ -223,7 +223,7 @@ public partial class Player : Node3D
 	private void Body()
 	{
 		// player height adjustment for crouching
-		float StanceLerpTime = DeltaTime * 16f;
+		float StanceLerpTime = DeltaTime * 12f;
 		float ColliderHeight = 1.95f;
 		
 		if (IsCrouching) ColliderHeight = 1.333f;
@@ -245,7 +245,7 @@ public partial class Player : Node3D
 		{
 			CamRotY.Rotation = new Vector3(0f, CamRotY.Rotation.Y - Mathf.DegToRad(InputManager.MouseDelta().X * InputManager.Sensitivity), 0f);
 			CamRotX.Rotation = new Vector3(CamRotX.Rotation.X - Mathf.DegToRad(InputManager.MouseDelta().Y * InputManager.Sensitivity), 0f, 0f);
-			CamRotX.Rotation = new Vector3(Mathf.Clamp(CamRotX.Rotation.X, Mathf.DegToRad(-80f), Mathf.DegToRad(80f)), 0f, 0f);
+			CamRotX.Rotation = new Vector3(Mathf.Clamp(CamRotX.Rotation.X, Mathf.DegToRad(-80f), Mathf.DegToRad(90f)), 0f, 0f);
 		}
 		
 		// recoil

@@ -1,9 +1,62 @@
 [gd_scene format=3 uid="uid://cxj302nxplmnf"]
 
+[ext_resource type="Texture2D" uid="uid://br7e3wa1cxx5j" path="res://Materials/EnviDestDemoText.png" id="1_1apju"]
 [ext_resource type="PackedScene" uid="uid://btntnfln4jlei" path="res://Scenes/Destruction/DestructibleFloorPlaceholder.tscn" id="1_ayvhj"]
 [ext_resource type="PackedScene" uid="uid://blvoo1ejelp37" path="res://Scenes/Destruction/DestructibleWallPlaceholder.tscn" id="2_1apju"]
 
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_gk0ph"]
+lifetime_randomness = 1.0
+emission_shape_scale = Vector3(4, 4, 4)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+angle_min = -720.0
+angle_max = 720.0
+direction = Vector3(0, 0, 0)
+spread = 180.0
+initial_velocity_max = 0.049999997
+gravity = Vector3(0, 0, 0)
+attractor_interaction_enabled = false
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rajel"]
+diffuse_mode = 3
+specular_mode = 2
+albedo_color = Color(0.6651851, 0.6651851, 0.6651851, 1)
+metallic_specular = 0.0
+backlight_enabled = true
+backlight = Color(1, 1, 1, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_4f6p4"]
+material = SubResource("StandardMaterial3D_rajel")
+size = Vector2(0.01, 0.01)
+
 [node name="Map" type="Node3D" unique_id=470715279]
+
+[node name="particles" type="GPUParticles3D" parent="." unique_id=1780310804]
+transform = Transform3D(3.5, 0, 0, 0, 0.5, 0, 0, 0, 3.5, -8, 2, -8)
+cast_shadow = 0
+amount = 5000
+lifetime = 16.0
+preprocess = 16.0
+randomness = 1.0
+draw_order = 3
+transform_align = 1
+transform_align_channel_filter = 1
+process_material = SubResource("ParticleProcessMaterial_gk0ph")
+draw_pass_1 = SubResource("QuadMesh_4f6p4")
+
+[node name="text" type="SpotLight3D" parent="." unique_id=2064899433]
+transform = Transform3D(0.7071068, 0, 0.7071068, 0, 1, 0, -0.7071068, 0, 0.7071068, 0, 2, 0)
+visible = false
+light_energy = 16.0
+light_indirect_energy = 0.0
+light_volumetric_fog_energy = 0.0
+light_projector = ExtResource("1_1apju")
+light_specular = 0.0
+light_bake_mode = 0
+shadow_enabled = true
+spot_range = 64.0
+spot_attenuation = 0.0
+spot_angle_attenuation = 0.0
 
 [node name="CustomLighting" type="Node3D" parent="." unique_id=1243888829]
 

@@ -11,9 +11,14 @@
 [ext_resource type="PackedScene" uid="uid://co3bi2lwtmj1" path="res://Scenes/Projectile.tscn" id="8_3cx6b"]
 [ext_resource type="PackedScene" uid="uid://cu6qhyjnbaa04" path="res://Scenes/Destruction/DestructionBlob.tscn" id="8_4q8tf"]
 [ext_resource type="PackedScene" uid="uid://b05x51u73gr18" path="res://Scenes/Destruction/OtherDestructionBlob.tscn" id="9_8r6kd"]
+[ext_resource type="Shader" uid="uid://pi5x1413ak62" path="res://Materials/InventoryItem.gdshader" id="11_tfod6"]
+[ext_resource type="Shader" uid="uid://q7pypry6nmg1" path="res://Materials/InventoryItemTile.gdshader" id="12_lbihj"]
+[ext_resource type="Texture2D" uid="uid://bp8w2plmwbk3m" path="res://Materials/shotguninventoryimage2backgroundtest.png" id="12_vvhu1"]
 [ext_resource type="Script" uid="uid://m7ni2ynnbket" path="res://Scripts/Viewmodel.cs" id="13_4q8tf"]
+[ext_resource type="Texture2D" uid="uid://bv0uv30ylg4n1" path="res://Materials/shotguninventoryimage2.png" id="13_lbihj"]
 [ext_resource type="Script" uid="uid://vcun4valwhi4" path="res://Scripts/ViewmodelArms.cs" id="14_8r6kd"]
 [ext_resource type="Material" uid="uid://bshbrehgfeor0" path="res://Materials/Viewmodel.tres" id="15_8r6kd"]
+[ext_resource type="Texture2D" uid="uid://ppgqg6m7g7fy" path="res://Materials/shotguninventoryimage2sliced.png" id="15_raj38"]
 [ext_resource type="Script" uid="uid://bfrgmxfsdedhv" path="res://Scenes/test1.cs" id="16_8r6kd"]
 [ext_resource type="Script" uid="uid://i4a81sqa0hcl" path="res://Scripts/Misc/Ik.cs" id="16_rajel"]
 [ext_resource type="Script" uid="uid://1cyky122j1iv" path="res://Scripts/ViewmodelOverride.cs" id="16_tfod6"]
@@ -22,7 +27,73 @@
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_71axn"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rajel"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.60038817, 0.60038817, 0.60038817, 0)
+border_color = Color(0.8001019, 0.8001019, 0.8001019, 0)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8r6kd"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.60038817, 0.60038817, 0.60038817, 0)
+border_color = Color(0.8001019, 0.8001019, 0.8001019, 0)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vvhu1"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.60038817, 0.60038817, 0.60038817, 0)
+border_color = Color(0.8001019, 0.8001019, 0.8001019, 0)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_71axn"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2wi6t"]
+shader = ExtResource("12_lbihj")
+shader_parameter/textureimg = ExtResource("13_lbihj")
+shader_parameter/texturebg = ExtResource("12_vvhu1")
+shader_parameter/color = Color(0, 0.78431374, 0.39215687, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_raj38"]
+shader = ExtResource("11_tfod6")
+shader_parameter/textureimg = ExtResource("13_lbihj")
+shader_parameter/texturebg = ExtResource("12_vvhu1")
+shader_parameter/color = Color(0, 0.78431374, 0.39215687, 1)
+shader_parameter/offset = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7etct"]
+shader = ExtResource("11_tfod6")
+shader_parameter/textureimg = ExtResource("13_lbihj")
+shader_parameter/texturebg = ExtResource("12_vvhu1")
+shader_parameter/color = Color(0, 0.78431374, 0.39215687, 1)
+shader_parameter/offset = 0.5
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8e0uq"]
+shader = ExtResource("11_tfod6")
+shader_parameter/textureimg = ExtResource("15_raj38")
+shader_parameter/texturebg = ExtResource("15_raj38")
+shader_parameter/color = Color(0, 0.78431374, 0.39215687, 1)
+shader_parameter/offset = 0.0
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7lihs"]
 radius = 0.3
@@ -1655,6 +1726,7 @@ _data = {
 
 [sub_resource type="Environment" id="Environment_fgofq"]
 background_mode = 1
+background_energy_multiplier = 0.0
 ambient_light_source = 1
 ambient_light_color = Color(1, 1, 1, 1)
 ambient_light_energy = 0.01
@@ -1676,7 +1748,9 @@ Sphere = NodePath("Sphere")
 offset_left = 16.0
 offset_top = 16.0
 offset_right = 1040.0
-offset_bottom = 36.0
+offset_bottom = 144.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 2
 theme_override_fonts/normal_font = ExtResource("4_71axn")
 theme_override_fonts/bold_font = ExtResource("4_71axn")
 theme_override_fonts/bold_italics_font = ExtResource("4_71axn")
@@ -1688,11 +1762,10 @@ theme_override_font_sizes/bold_italics_font_size = 14
 theme_override_font_sizes/italics_font_size = 14
 theme_override_font_sizes/mono_font_size = 14
 bbcode_enabled = true
-text = "[color=666666]cooming in ur mom uwu"
+text = "cooming in ur mom uwu"
 scroll_active = false
 scroll_following = true
 autowrap_mode = 0
-vertical_alignment = 1
 
 [node name="VersionLabel" type="RichTextLabel" parent="GameManager" unique_id=679126546]
 anchors_preset = 5
@@ -1703,6 +1776,9 @@ offset_top = 16.0
 offset_right = 512.0
 offset_bottom = 36.0
 grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 2
+theme_override_constants/shadow_offset_x = 0
 theme_override_fonts/normal_font = ExtResource("4_71axn")
 theme_override_fonts/bold_font = ExtResource("4_71axn")
 theme_override_fonts/bold_italics_font = ExtResource("4_71axn")
@@ -1714,12 +1790,11 @@ theme_override_font_sizes/bold_italics_font_size = 14
 theme_override_font_sizes/italics_font_size = 14
 theme_override_font_sizes/mono_font_size = 14
 bbcode_enabled = true
-text = "[color=666666]Environmental Destruction Demo"
+text = "Environmental Destruction Demo"
 scroll_active = false
 scroll_following = true
 autowrap_mode = 0
 horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="Ray" type="RayCast3D" parent="GameManager" unique_id=1483285338]
 target_position = Vector3(0, 0, 0)
@@ -1749,9 +1824,9 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = 16.0
-offset_top = -1088.0
-offset_right = 528.0
-offset_bottom = -64.0
+offset_top = -1070.0
+offset_right = 527.9999
+offset_bottom = -46.0
 grow_horizontal = 2
 grow_vertical = 0
 focus_mode = 2
@@ -1842,7 +1917,10 @@ grow_horizontal = 2
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("4_71axn")
 theme_override_font_sizes/font_size = 14
-placeholder_text = "console go brrr"
+theme_override_styles/normal = SubResource("StyleBoxFlat_rajel")
+theme_override_styles/focus = SubResource("StyleBoxFlat_8r6kd")
+theme_override_styles/read_only = SubResource("StyleBoxFlat_vvhu1")
+placeholder_text = "_console_go_brrr_"
 caret_blink = true
 caret_move_on_right_click = false
 caret_multiple = false
@@ -1873,6 +1951,7 @@ grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="Crosshair" type="Control" parent="Hud/Control" unique_id=951502085]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -1899,6 +1978,103 @@ offset_bottom = 500.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("PlaceholderTexture2D_71axn")
+
+[node name="Inventory" type="Control" parent="Hud/Control" unique_id=773294149]
+custom_maximum_size = Vector2(0, 0)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+grow_horizontal = 0
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+
+[node name="shortgunitem" type="TextureRect" parent="Hud/Control/Inventory" unique_id=793437806]
+visible = false
+material = SubResource("ShaderMaterial_2wi6t")
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -397.0
+offset_top = 87.5
+offset_bottom = 262.5
+grow_horizontal = 0
+grow_vertical = 2
+rotation = 3.1415927
+texture = ExtResource("13_lbihj")
+expand_mode = 1
+stretch_mode = 1
+flip_h = true
+flip_v = true
+
+[node name="pre" type="TextureRect" parent="Hud/Control/Inventory/shortgunitem" unique_id=1213245877]
+material = SubResource("ShaderMaterial_raj38")
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -87.5
+offset_right = 397.0
+offset_bottom = 87.5
+grow_horizontal = 0
+grow_vertical = 2
+texture = ExtResource("13_lbihj")
+expand_mode = 1
+stretch_mode = 1
+flip_h = true
+flip_v = true
+
+[node name="suff" type="TextureRect" parent="Hud/Control/Inventory/shortgunitem" unique_id=944626413]
+material = SubResource("ShaderMaterial_7etct")
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = -397.0
+offset_top = -87.5
+offset_bottom = 87.5
+grow_vertical = 2
+texture = ExtResource("13_lbihj")
+expand_mode = 1
+stretch_mode = 1
+flip_h = true
+flip_v = true
+
+[node name="Control" type="Control" parent="Hud/Control/Inventory" unique_id=259043984]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Hud/Control/Inventory/Control" unique_id=1151454230]
+material = SubResource("ShaderMaterial_8e0uq")
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -794.0
+offset_top = -87.5
+offset_bottom = 87.5
+grow_horizontal = 0
+grow_vertical = 2
+texture = ExtResource("15_raj38")
+region_rect = Rect2(0, 0, 1191, 175)
+patch_margin_left = 397
+patch_margin_right = 397
+axis_stretch_horizontal = 1
 
 [node name="Player" type="Node3D" parent="." unique_id=2034533338 node_paths=PackedStringArray("Controller", "BodyRotY", "Collider", "CameraTargetPos", "PlayerView", "CameraMotionGlobal", "CamRotY", "CamRotX", "CameraMotionLocal", "PlayerCamera", "CameraOrientation", "SpreadR", "Director", "DebugLabel")]
 script = ExtResource("5_b2bpf")
@@ -1934,7 +2110,7 @@ shape = SubResource("CapsuleShape3D_7lihs")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, 0)
 
 [node name="PlayerView" type="Node3D" parent="Player" unique_id=303474703]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.75, 0)
 
 [node name="CameraMotionGlobal" type="Node3D" parent="Player/PlayerView" unique_id=1794460938]
 
@@ -1946,7 +2122,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, 0)
 
 [node name="Camera" type="Camera3D" parent="Player/PlayerView/CameraMotionGlobal/CamRotY/CamRotX/CameraMotionLocal" unique_id=657052624]
 current = true
-fov = 110.0
+fov = 100.0
 near = 0.001
 far = 256.0
 
@@ -1957,6 +2133,7 @@ far = 256.0
 [node name="Director" type="Node3D" parent="Player/PlayerView/CameraMotionGlobal/CamRotY/CamRotX/CameraMotionLocal/Camera/SpreadR" unique_id=960632119]
 
 [node name="Viewmodel" type="Node3D" parent="Player/PlayerView/CameraMotionGlobal/CamRotY/CamRotX/CameraMotionLocal" unique_id=2143233611 node_paths=PackedStringArray("ArmLeft", "ArmRight", "ShotgunOverride")]
+transform = Transform3D(1, 0, 0, 0, 0.57357645, -0.81915206, 0, 0.81915206, 0.57357645, 0.25, -0.5, -0.25)
 script = ExtResource("13_4q8tf")
 ArmLeft = NodePath("Arms/LeftArm")
 ArmRight = NodePath("Arms/RightArm")
@@ -1965,6 +2142,7 @@ ShotgunOverride = NodePath("Overrides/ShotgunOverride")
 [node name="Arms" type="Node3D" parent="Player/PlayerView/CameraMotionGlobal/CamRotY/CamRotX/CameraMotionLocal/Viewmodel" unique_id=1435661337]
 
 [node name="LeftArm" type="Node3D" parent="Player/PlayerView/CameraMotionGlobal/CamRotY/CamRotX/CameraMotionLocal/Viewmodel/Arms" unique_id=1081506698 node_paths=PackedStringArray("Skeleton", "RigTransform", "InnTransform", "MidTransform", "OutTransform", "Ik", "IkTarget")]
+visible = false
 script = ExtResource("14_8r6kd")
 Id = "LeftArm"
 Skeleton = NodePath("OutTransform/MidTransform/InnTransform/Rig/Skeleton3D")
@@ -3691,3 +3869,4 @@ libraries/ = SubResource("AnimationLibrary_jmx6n")
 environment = SubResource("Environment_fgofq")
 
 [node name="Map" parent="." unique_id=470715279 instance=ExtResource("20_tfod6")]
+transform = Transform3D(0.70710677, 0, -0.70710677, 0, 1, 0, 0.70710677, 0, 0.70710677, 0, 0, 0)

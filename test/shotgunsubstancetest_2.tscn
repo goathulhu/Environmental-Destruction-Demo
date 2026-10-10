@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://b0x7jfoyqtras"]
+
+[ext_resource type="PackedScene" uid="uid://b7w4evgkysfen" path="res://test/shotgunsubstancetest2.glb" id="1_ncmyx"]
+[ext_resource type="Material" uid="uid://bxljaa8xs23a5" path="res://test/shotguntest.tres" id="2_sc2q5"]
+
+[node name="shotgunsubstancetest2" unique_id=1986078064 instance=ExtResource("1_ncmyx")]
+
+[node name="shell" parent="." index="0" unique_id=16016131]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.025, 0.125)
+material_override = ExtResource("2_sc2q5")
+cast_shadow = 0
+
+[node name="tube_002" parent="." index="1" unique_id=1172024946]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+material_override = ExtResource("2_sc2q5")
+cast_shadow = 0
+
+[node name="upper" parent="." index="2" unique_id=1920560819]
+material_override = ExtResource("2_sc2q5")
+cast_shadow = 0
+
+[node name="lower" parent="upper" index="0" unique_id=214093314]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.035, 0.015)
+material_override = ExtResource("2_sc2q5")
+cast_shadow = 0
+
+[node name="hammer" parent="upper/lower" index="0" unique_id=1443210911]
+transform = Transform3D(1, 0, 0, 0, 0.38268334, -0.9238796, 0, 0.9238796, 0.38268334, 0, 0.02, 0.04)
+material_override = ExtResource("2_sc2q5")
+cast_shadow = 0
+
+[node name="releasebutton" parent="upper/lower" index="1" unique_id=279787790]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.036, -0.02)
+material_override = ExtResource("2_sc2q5")
+cast_shadow = 0
+
+[node name="trigger" parent="upper/lower" index="2" unique_id=1242275976]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0.2)
+material_override = ExtResource("2_sc2q5")
+cast_shadow = 0
+
+[node name="pumpgrip" parent="upper" index="1" unique_id=1504169903]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+material_override = ExtResource("2_sc2q5")
+cast_shadow = 0
+
+[node name="tongue" parent="." index="3" unique_id=1134435684]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.017, 0.14)
+material_override = ExtResource("2_sc2q5")
+cast_shadow = 0
