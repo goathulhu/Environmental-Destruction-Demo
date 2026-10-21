@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://b7w4evgkysfen"
-path="res://.godot/imported/shotgunsubstancetest2.glb-ea8515d70c241e80c7bbd1ce31e8f861.scn"
+uid="uid://citka5wsao155"
+path="res://.godot/imported/shotgunviewmodel.glb-62cb512920751242d4a25a5e9a8f5dd1.scn"
 
 [deps]
 
-source_file="res://test/shotgunsubstancetest2.glb"
-dest_files=["res://.godot/imported/shotgunsubstancetest2.glb-ea8515d70c241e80c7bbd1ce31e8f861.scn"]
+source_file="res://test/shotgunviewmodel.glb"
+dest_files=["res://.godot/imported/shotgunviewmodel.glb-62cb512920751242d4a25a5e9a8f5dd1.scn"]
 
 [params]
 

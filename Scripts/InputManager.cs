@@ -10,8 +10,8 @@ public partial class InputManager : Node
 
 	private float DoubleTapThreshold = 0.2f;
 
-	public float Sensitivity = 0.05f;
-	public float TabletSensitivity = 0.0025f;
+	public float Sensitivity = 0.04f;
+	public float TabletSensitivity = 0.002f;
 
 	private Vector2 LastMouseInputValue = Vector2.Zero;
 	private Vector2 CurrentMouseInputValue = Vector2.Zero;

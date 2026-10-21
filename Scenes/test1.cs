@@ -12,10 +12,15 @@ public partial class test1 : AnimationPlayer
 	
 	public override void _Process(double delta)
 	{
-		if (GameManager.InputManager.Down("lmb"))
+		if (GameManager.InputManager.Down("rmb"))
 		{
-			Stop();
-			Play("Shoot");
+			//Stop();
+			Play("IdleToAds", 0.2f);
+		}
+		else if (GameManager.InputManager.Up("rmb"))
+		{
+			//Stop();
+			Play("Idle", 0.2f);
 		}
 	}
 }

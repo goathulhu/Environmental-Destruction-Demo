@@ -263,8 +263,8 @@ public partial class Player : Node3D
 		LastCameraRot = CurrentCameraRot;
 		
 		// land hang
-		LandHang.YTarget = Mathf.Lerp(LandHang.YTarget, 0f, DeltaTime * 16f);
-		LandHang.Y = Mathf.Lerp(LandHang.Y, Mathf.Clamp(LandHang.YTarget, -1.75f, 0f), DeltaTime * 32f);
+		LandHang.YTarget = Mathf.Lerp(LandHang.YTarget, 0f, DeltaTime * 12f);
+		LandHang.Y = Mathf.Lerp(LandHang.Y, Mathf.Clamp(LandHang.YTarget, -1.75f, 0f), DeltaTime * 24f);
 		
 		LandHang.XZTarget = LandHang.XZTarget.Lerp(Vector3.Zero, DeltaTime * 16f);
 		LandHang.XZ = LandHang.XZ.Lerp(LandHang.XZTarget, DeltaTime * 32f);

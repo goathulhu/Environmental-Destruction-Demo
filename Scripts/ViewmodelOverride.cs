@@ -12,7 +12,7 @@ public partial class ViewmodelOverride : Node3D
 	Viewmodel Viewmodel;
 	
 	[Export] public string Id;
-	[ExportCategory(" ")]
+	[ExportCategory("")]
 	[Export] public AnimationPlayer Animator;
 	[Export] public Skeleton3D Skeleton;
 	[Export] public Node3D RigTransform;
@@ -21,6 +21,13 @@ public partial class ViewmodelOverride : Node3D
 	[Export] public Node3D OutTransform;
 	[Export] public Node3D Get;
 	
+	public ((Vector3 Rotation, Vector3 Position) Inn, 
+			(Vector3 Rotation, Vector3 Position) Mid, 
+			(Vector3 Rotation, Vector3 Position) Out)[] Layers = 
+			{
+				((Vector3.Zero, Vector3.Zero), (Vector3.Zero, Vector3.Zero), (Vector3.Zero, Vector3.Zero))
+			};
+	
 	public override void _Ready()
 	{
 		GameManager = (GameManager)GetTree().Root.FindChild("GameManager", true, false);
@@ -28,6 +35,49 @@ public partial class ViewmodelOverride : Node3D
 		Player = GameManager.Player;
 		Rng = GameManager.Rng;
 		Viewmodel = GameManager.Viewmodel;
+		
+		LayerCount(8);
+	}
+	
+	public void LayerCount(int NewCount)
+	{
+		Array.Resize(ref Layers, Mathf.Clamp(NewCount, 1, 99));
+		
+		for(int I = 0; I < Layers.Length; I++)
+		{
+			Layers[I] = ((Vector3.Zero, Vector3.Zero), (Vector3.Zero, Vector3.Zero), (Vector3.Zero, Vector3.Zero));
+		}
+	}
+	
+	public override void _Process(double delta)
+	{
+		DeltaTime = GameManager.GlobalDeltaTime;
+		
+		Vector3 InnRotation = Vector3.Zero;
+		Vector3 InnPosition = Vector3.Zero;
+		Vector3 MidRotation = Vector3.Zero;
+		Vector3 MidPosition = Vector3.Zero;
+		Vector3 OutRotation = Vector3.Zero;
+		Vector3 OutPosition = Vector3.Zero;
+		
+		foreach (((Vector3 Rotation, Vector3 Position) Inn, 
+			(Vector3 Rotation, Vector3 Position) Mid, 
+			(Vector3 Rotation, Vector3 Position) Out) Layer in Layers)
+		{
+			InnRotation += Layer.Inn.Rotation;
+			InnPosition += Layer.Inn.Position;
+			MidRotation += Layer.Mid.Rotation;
+			MidPosition += Layer.Mid.Position;
+			OutRotation += Layer.Out.Rotation;
+			OutPosition += Layer.Out.Position;
+		}
+		
+		InnTransform.Rotation = InnRotation;
+		InnTransform.Position = InnPosition;
+		MidTransform.Rotation = MidRotation;
+		MidTransform.Position = MidPosition;
+		OutTransform.Rotation = OutRotation;
+		OutTransform.Position = OutPosition;
 	}
 	
 	public void Play(string Animation)

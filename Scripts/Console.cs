@@ -233,6 +233,7 @@ public partial class Console : Node
 						Log(Name, "(˚ˎ 。7", Lt.Raw);
 						Log(Name, " |、˜〵", Lt.Raw);
 						Log(Name, " じしˍ,)ノ", Lt.Raw);
+						
 						break;
 
 					case "tp" : // teleports the player to the given coordinates in global/world space
@@ -255,14 +256,13 @@ public partial class Console : Node
 						{
 							if (Parameters[1].IsValidFloat() && Parameters[2].IsValidFloat())
 							{
-								Vector3 NewPos = 
-									new Vector3(
-										Parameters[1].ToFloat(), 
-										GameManager.CurrentMap.GetTerrainHeightAt("Terrain", 
-											new Vector2(
-												Parameters[1].ToFloat(), 
-												Parameters[2].ToFloat())) + 1f, 
-										Parameters[2].ToFloat());
+								Vector3 NewPos = new Vector3(
+									Parameters[1].ToFloat(), 
+									GameManager.CurrentMap.GetTerrainHeightAt("Terrain", 
+										new Vector2(
+											Parameters[1].ToFloat(), 
+											Parameters[2].ToFloat())) + 1f, 
+									Parameters[2].ToFloat());
 								if (Player != null)
 								{
 									Player.TeleportTo(NewPos);

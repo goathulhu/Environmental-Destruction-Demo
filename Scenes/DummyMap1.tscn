@@ -61,7 +61,7 @@ spot_angle_attenuation = 0.0
 [node name="CustomLighting" type="Node3D" parent="." unique_id=1243888829]
 
 [node name="OmniLight3D2" type="OmniLight3D" parent="CustomLighting" unique_id=1417575508]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5, -16)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 3.5, -16)
 light_indirect_energy = 0.0
 light_specular = 0.0
 light_bake_mode = 0
@@ -72,7 +72,7 @@ shadow_blur = 10.0
 omni_range = 16.0
 
 [node name="OmniLight3D6" type="OmniLight3D" parent="CustomLighting" unique_id=101109453]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 3.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5, 0)
 light_indirect_energy = 0.0
 light_specular = 0.0
 light_bake_mode = 0

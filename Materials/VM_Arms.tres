@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://bhrx8vbdumf2t"]
+
+[ext_resource type="Shader" uid="uid://chxebw77cgot6" path="res://Materials/Viewmodel.gdshader" id="1_l8ll8"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_l8ll8")
+shader_parameter/FOV = 45.0

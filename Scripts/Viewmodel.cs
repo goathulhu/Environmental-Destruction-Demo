@@ -74,7 +74,7 @@ public partial class Viewmodel : Node3D
 		Array.Resize(ref OverrideStack, 2);
 		OverrideStack[0] = ShotgunOverride;
 		
-		Scale = Vector3.One * 2f;
+		//Scale = Vector3.One * 2f;
 	}
 	
 	public override void _Process(double delta)
@@ -202,8 +202,8 @@ public partial class Viewmodel : Node3D
 		// breathe
 		BreatheTimer += DeltaTime * 1.5f;
 		JitterTimer -= DeltaTime;
-		float JitterStrengthRot = Player.WalkTimer > 0f ? 1.5f : 0.25f;
-		float JitterStrengthPos = Player.WalkTimer > 0f ? 0.75f : 0.1f;
+		float JitterStrengthRot = InputManager.Hold("rmb") ? 0.1f : 1.25f;//Player.WalkTimer > 0f ? 1.5f : 0.25f;
+		float JitterStrengthPos = InputManager.Hold("rmb") ? 0.125f : 0.25f;//Player.WalkTimer > 0f ? 0.75f : 0.1f;
 		if (JitterTimer <= 0f)
 		{
 			JitterRotTarget = new Vector3(
@@ -233,9 +233,10 @@ public partial class Viewmodel : Node3D
 		ShotgunOverride.Get.Transform = ShotgunOverride.Skeleton.GetBoneGlobalPose(ShotgunOverride.Skeleton.FindBone("viewmodel_pivot"));
 		ViewmodelPivot = (ShotgunOverride.Get.Position, ShotgunOverride.Get.Rotation);
 		ShotgunOverride.RigTransform.Position = -ViewmodelPivot.Position;
-		ShotgunOverride.InnTransform.Position = ViewmodelPivot.Position;
+		//ShotgunOverride.InnTransform.Position = ViewmodelPivot.Position;
+		ShotgunOverride.Layers[0].Inn.Position = ViewmodelPivot.Position;
 		
-		if (Player.WalkTimer > 0f)
+		/*if (Player.WalkTimer > 0f)
 		{
 			WalkAngle = Mathf.Clamp(Mathf.Lerp(WalkAngle, Player.InputDirection.X, DeltaTime * 8f), -1f, 1f);
 			
@@ -249,8 +250,8 @@ public partial class Viewmodel : Node3D
 			ShotgunOverride.OutTransform.Position = ShotgunOverride.OutTransform.Position.Lerp(
 				new Vector3(
 					LRMoveHang * 0.01f + LRMouseHang * -0.1f + JitterPos.X, 
-					Mathf.Lerp(0f, -0.025f, CrouchLerp) + Mathf.Sin(BreatheTimer) * 0.0075f + JitterPos.Y + JumpHangPos + 0.0333f, 
-					FBMoveHang * 0.025f + Mathf.Lerp(0f, 0.1f, CrouchLerp) + Mathf.Abs(Player.CurrentCameraRot.X * 0.001f) + JitterPos.Z + 0.0666f
+					Mathf.Lerp(0f, -0.025f, CrouchLerp) + Mathf.Sin(BreatheTimer) * 0.0075f + JitterPos.Y + JumpHangPos, 
+					FBMoveHang * 0.025f + Mathf.Lerp(0f, 0.1f, CrouchLerp) + Mathf.Abs(Player.CurrentCameraRot.X * 0.001f) + JitterPos.Z
 				), DeltaTime * 24f);
 			ShotgunOverride.OutTransform.Rotation = ShotgunOverride.OutTransform.Rotation.Lerp(
 				new Vector3(
@@ -260,26 +261,98 @@ public partial class Viewmodel : Node3D
 				), DeltaTime * 24f);
 		}
 		else
-		{
-			ShotgunOverride.InnTransform.Rotation = ShotgunOverride.InnTransform.Rotation.Lerp(
-				new Vector3(
-					UDMouseHang * -0.25f + Mathf.Clamp(Mathf.DegToRad(Player.CurrentCameraRot.X * 0.05f), 0f, 90f) + JitterRot.X + JumpHangRot * -0.0333f, 
-					JitterRot.Y, 
-					Mathf.DegToRad(LRMoveHang * -7.5f) + JitterRot.Z
-				), DeltaTime * 24f);
-			
-			ShotgunOverride.OutTransform.Position = ShotgunOverride.OutTransform.Position.Lerp(
-				new Vector3(
-					LRMoveHang * 0.01f + LRMouseHang * -0.1f + JitterPos.X, 
-					Mathf.Lerp(0f, -0.025f, CrouchLerp) + Mathf.Sin(BreatheTimer) * 0.0075f + JitterPos.Y + JumpHangPos + 0.0333f, 
-					FBMoveHang * 0.025f + Mathf.Lerp(0f, 0.1f, CrouchLerp) + Mathf.Abs(Player.CurrentCameraRot.X * 0.001f) + JitterPos.Z + 0.0666f
-				), DeltaTime * 24f);
-			ShotgunOverride.OutTransform.Rotation = ShotgunOverride.OutTransform.Rotation.Lerp(
-				new Vector3(
-					UDMouseHang * 0.25f + Mathf.DegToRad(Player.CurrentCameraRot.X * -0.05f), 
-					LRMouseHang * 0.125f, 
-					Mathf.DegToRad(LRMoveHang * -5f) + Mathf.Lerp(0f, Mathf.DegToRad(15f), CrouchLerp) + LRMouseHang * -0.25f
-				), DeltaTime * 24f);
-		}
+		{*/
+		
+		/*float Lerp = InputManager.Hold("rmb") ? DeltaTime * 12f : DeltaTime * 12f;
+		
+		ShotgunOverride.InnTransform.Rotation = ShotgunOverride.InnTransform.Rotation.Lerp(
+			new Vector3(
+				JitterRot.X + UDMouseHang * (InputManager.Hold("rmb") ? -0.2f : 0.5f) + (Mathf.Sin(BreatheTimer) * (InputManager.Hold("rmb") ? 0.00333f : 0f)),//UDMouseHang * -0.25f + Mathf.Clamp(Mathf.DegToRad(Player.CurrentCameraRot.X * 0.05f), 0f, 90f) + JumpHangRot * -0.0333f, 
+				JitterRot.Y + LRMouseHang * (InputManager.Hold("rmb") ? -0.1f : -0.75f), 
+				JitterRot.Z + LRMouseHang * (InputManager.Hold("rmb") ? 0.5f : 0.75f)//Mathf.DegToRad(LRMoveHang * -7.5f) + JitterRot.Z
+			), Lerp);
+		
+		ShotgunOverride.OutTransform.Position = ShotgunOverride.OutTransform.Position.Lerp(
+			new Vector3(
+				JitterPos.X,//LRMoveHang * 0.01f + LRMouseHang * -0.1f + JitterPos.X, 
+				JitterPos.Y + (Mathf.Sin(BreatheTimer) * (InputManager.Hold("rmb") ? 0f : 0.01f)),// + Mathf.DegToRad(Player.CurrentCameraRot.X) * (InputManager.Hold("rmb") ? 0f : 0.25f),//Mathf.Lerp(0f, -0.025f, CrouchLerp) + Mathf.Sin(BreatheTimer) * 0.0075f + JitterPos.Y + JumpHangPos, 
+				JitterPos.Z// + Mathf.Abs(Mathf.DegToRad(Player.CurrentCameraRot.X)) * (InputManager.Hold("rmb") ? 0f : -0.1f)//FBMoveHang * 0.025f + Mathf.Lerp(0f, 0.1f, CrouchLerp) + Mathf.Abs(Player.CurrentCameraRot.X * 0.001f) + JitterPos.Z
+			), Lerp);
+		
+		ShotgunOverride.MidTransform.Rotation = ShotgunOverride.MidTransform.Rotation.Lerp(
+			new Vector3(
+				UDMouseHang * (InputManager.Hold("rmb") ? 1f : 1f),//Mathf.DegToRad(Player.CurrentCameraRot.X) * -1f,//UDMouseHang * 0.25f + Mathf.DegToRad(Player.CurrentCameraRot.X * -0.05f), 
+				LRMouseHang,// + InputManager.GetMovementInputVector().X * -InputManager.GetMovementInputVector().Y * 0.25f, 
+				0f//Mathf.DegToRad(LRMoveHang * -5f) + Mathf.Lerp(0f, Mathf.DegToRad(15f), CrouchLerp) + LRMouseHang * -0.25f
+			), Lerp);
+		
+		ShotgunOverride.OutTransform.Rotation = ShotgunOverride.OutTransform.Rotation.Lerp(
+			new Vector3(
+				Mathf.DegToRad(Player.CurrentCameraRot.X) * (InputManager.Hold("rmb") ? 0f : -0.1f),//UDMouseHang * 0.25f + Mathf.DegToRad(Player.CurrentCameraRot.X * -0.05f), 
+				//UDMouseHang,
+				0f,//LRMouseHang, 
+				0f//LRMouseHang * 0.333f//Mathf.DegToRad(LRMoveHang * -5f) + Mathf.Lerp(0f, Mathf.DegToRad(15f), CrouchLerp) + LRMouseHang * -0.25f
+			), Lerp);*/
+		
+		/*ShotgunOverride.InnTransform.Rotation = new Vector3(
+			JitterRot.X + UDMouseHang * (InputManager.Hold("rmb") ? -0.125f : 0f) + (Mathf.Sin(BreatheTimer) * (InputManager.Hold("rmb") ? 0.00333f : 0f)),//UDMouseHang * -0.25f + Mathf.Clamp(Mathf.DegToRad(Player.CurrentCameraRot.X * 0.05f), 0f, 90f) + JumpHangRot * -0.0333f, 
+			JitterRot.Y + LRMouseHang * (InputManager.Hold("rmb") ? -0.0625f : 0.5f), 
+			JitterRot.Z + LRMouseHang * (InputManager.Hold("rmb") ? 0.0625f : -0.5f)//Mathf.DegToRad(LRMoveHang * -7.5f) + JitterRot.Z
+		);
+		
+		ShotgunOverride.OutTransform.Position = new Vector3(
+			JitterPos.X,//LRMoveHang * 0.01f + LRMouseHang * -0.1f + JitterPos.X, 
+			JitterPos.Y + (Mathf.Sin(BreatheTimer) * (InputManager.Hold("rmb") ? 0f : 0.01f)) + Mathf.DegToRad(Player.CurrentCameraRot.X) * (InputManager.Hold("rmb") ? 0f : 0.25f),// + Mathf.DegToRad(Player.CurrentCameraRot.X) * (InputManager.Hold("rmb") ? 0f : 0.25f),//Mathf.Lerp(0f, -0.025f, CrouchLerp) + Mathf.Sin(BreatheTimer) * 0.0075f + JitterPos.Y + JumpHangPos, 
+			JitterPos.Z//FBMoveHang * 0.025f + Mathf.Lerp(0f, 0.1f, CrouchLerp) + Mathf.Abs(Player.CurrentCameraRot.X * 0.001f) + JitterPos.Z
+		);
+		
+		ShotgunOverride.MidTransform.Rotation = new Vector3(
+			0f,//UDMouseHang * (InputManager.Hold("rmb") ? 1f : 1f),//Mathf.DegToRad(Player.CurrentCameraRot.X) * -1f,//UDMouseHang * 0.25f + Mathf.DegToRad(Player.CurrentCameraRot.X * -0.05f), 
+			LRMouseHang * (InputManager.Hold("rmb") ? 0.333f : 1f),// + InputManager.GetMovementInputVector().X * -InputManager.GetMovementInputVector().Y * 0.25f, 
+			0f//LRMouseHang * (InputManager.Hold("rmb") ? 0f : -0.333f)//Mathf.DegToRad(LRMoveHang * -5f) + Mathf.Lerp(0f, Mathf.DegToRad(15f), CrouchLerp) + LRMouseHang * -0.25f
+		);
+		
+		ShotgunOverride.OutTransform.Rotation = new Vector3(
+			UDMouseHang * (InputManager.Hold("rmb") ? 0.333f : 0f) + Mathf.DegToRad(Player.CurrentCameraRot.X) * (InputManager.Hold("rmb") ? 0f : -1f),//UDMouseHang * 0.25f + Mathf.DegToRad(Player.CurrentCameraRot.X * -0.05f), 
+			//UDMouseHang,
+			0f,//LRMouseHang, 
+			0f//LRMouseHang * 0.333f//Mathf.DegToRad(LRMoveHang * -5f) + Mathf.Lerp(0f, Mathf.DegToRad(15f), CrouchLerp) + LRMouseHang * -0.25f
+		);*/
+		
+		ShotgunOverride.Layers[1].Inn.Rotation = ShotgunOverride.Layers[1].Inn.Rotation.Lerp(new Vector3(
+			JitterRot.X + UDMouseHang * (InputManager.Hold("rmb") ? -0.125f : 0f) + (Mathf.Sin(BreatheTimer) * (InputManager.Hold("rmb") ? 0.00333f : 0f)), 
+			JitterRot.Y + LRMouseHang * (InputManager.Hold("rmb") ? -0.125f : 0.5f), 
+			JitterRot.Z + LRMouseHang * (InputManager.Hold("rmb") ? 0.125f : -0.5f)
+		), DeltaTime * 16f);
+		
+		ShotgunOverride.Layers[1].Out.Position = ShotgunOverride.Layers[1].Out.Position.Lerp(new Vector3(
+			JitterPos.X, 
+			JitterPos.Y + (Mathf.Sin(BreatheTimer) * (InputManager.Hold("rmb") ? 0f : 0.01f)), 
+			JitterPos.Z
+		), DeltaTime * 16f);
+		
+		ShotgunOverride.Layers[1].Mid.Rotation = ShotgunOverride.Layers[1].Mid.Rotation.Lerp(new Vector3(
+			0f, 
+			LRMouseHang * (InputManager.Hold("rmb") ? 0.333f : 1f), 
+			0f
+		), DeltaTime * 16f);
+		
+		ShotgunOverride.Layers[0].Out.Rotation = ShotgunOverride.Layers[0].Out.Rotation.Lerp(new Vector3(
+			UDMouseHang * (InputManager.Hold("rmb") ? 0.333f : 0f), 
+			0f,
+			0f
+		), DeltaTime * 16f);
+		
+		ShotgunOverride.Layers[0].Out.Position = new Vector3(
+			0f, 
+			Mathf.DegToRad(Player.CurrentCameraRot.X) * (InputManager.Hold("rmb") ? 0f : 0.25f), 
+			0f
+		);
+		
+		ShotgunOverride.Layers[0].Out.Rotation = new Vector3(
+			Mathf.DegToRad(Player.CurrentCameraRot.X) * (InputManager.Hold("rmb") ? 0f : -1f), 
+			0f,
+			0f
+		);
 	}
 }

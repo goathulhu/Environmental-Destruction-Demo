@@ -1,0 +1,10 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://bshbrehgfeor0"]
+
+[ext_resource type="Shader" uid="uid://chxebw77cgot6" path="res://Materials/Viewmodel.gdshader" id="1_4frs2"]
+[ext_resource type="Texture2D" uid="uid://6ya4uqgf7hyj" path="res://test/DefaultMaterial_2D_View.png" id="2_trecw"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_4frs2")
+shader_parameter/TEXTURE = ExtResource("2_trecw")
+shader_parameter/FOV = 45.0
