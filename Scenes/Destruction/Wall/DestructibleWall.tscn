@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://vavaplfaxb5i"]
 
-[ext_resource type="Material" uid="uid://c4jxk1owsgcng" path="res://Materials/Wall.tres" id="1_icjv1"]
+[ext_resource type="Material" uid="uid://huprc8dfg4s" path="res://test/Noise.tres" id="1_u33hy"]
 [ext_resource type="ArrayMesh" uid="uid://bg2nhpoj4shwa" path="res://Meshes/Destruction/DestructableSurfaceWall.res" id="2_icjv1"]
 [ext_resource type="Script" uid="uid://b85tv4y4ukv0" path="res://Scripts/Destruction/DestructibleWall.cs" id="3_xuixv"]
 [ext_resource type="Material" uid="uid://c8devu2tt17sb" path="res://Materials/WallBeams.tres" id="4_ep4fv"]
@@ -12,7 +12,7 @@
 [node name="DestructibleWall" type="Node3D" unique_id=155879927]
 
 [node name="Wall" type="CSGMesh3D" parent="." unique_id=2038983504 node_paths=PackedStringArray("BeamsPlaceholderMesh", "BeamSpots")]
-material_override = ExtResource("1_icjv1")
+material_override = ExtResource("1_u33hy")
 gi_mode = 0
 calculate_tangents = false
 use_collision = true

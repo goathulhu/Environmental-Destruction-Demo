@@ -18,7 +18,7 @@ public partial class Player : Node3D
 	public Vector3 DeltaPos;
 	public float MoveSpeed;
 	
-	public (float Current, float Target, float Idle, float Walk, float Crouch) Speed;
+	public (float Current, float Target, float Idle, float Crouch, float Walk, float Sprint) Speed;
 	public (float Jump, float AirGravity, float GroundGravity) Force;
 	public (float Y, float YTarget, float YDefaultTarget, Vector3 XZ, Vector3 XZTarget, Vector3 XZActual) Velocity;
 	public (float Y, float YTarget, Vector3 XZ, Vector3 XZTarget) LandHang;
@@ -37,6 +37,7 @@ public partial class Player : Node3D
 	[Export] public CollisionShape3D Collider;
 	public CapsuleShape3D ColliderShape;
 	[Export] public Node3D CameraTargetPos;
+	[Export] public Node3D Fullbody;
 	
 	[ExportCategory("View")]
 	[Export] public Node3D PlayerView;
@@ -78,9 +79,6 @@ public partial class Player : Node3D
 	
 	private float InputTimeoutTimer = 0f;
 	
-	[ExportCategory("Dev")]
-	[Export] RichTextLabel DebugLabel;
-	
 	public override void _Ready()
 	{
 		GameManager = (GameManager)GetTree().Root.FindChild("GameManager", true, false);
@@ -97,8 +95,9 @@ public partial class Player : Node3D
 		Speed.Current = 0f;
 		Speed.Target = 0f;
 		Speed.Idle = 0f;
-		Speed.Walk = 7f;
-		Speed.Crouch = 3.5f;
+		Speed.Crouch = 3f;
+		Speed.Walk = 6f;
+		Speed.Sprint = 9f;
 		
 		Force.Jump = 9f;
 		Force.AirGravity = -39f;
@@ -202,7 +201,11 @@ public partial class Player : Node3D
 		if (IsWalkingInput)
 		{
 			if (IsCrouching) Speed.Current = Speed.Crouch;
-			else Speed.Current = Speed.Walk;
+			else
+			{
+				if (InputManager.Hold("sprint")) Speed.Current = Speed.Sprint;
+				else Speed.Current = Speed.Walk;
+			}
 		}
 		else Speed.Current = Speed.Idle;
 		
@@ -215,9 +218,6 @@ public partial class Player : Node3D
 		
 		Controller.Velocity = Velocity.XZ + (Vector3.Up * Velocity.Y);
 		Controller.MoveAndSlide();
-		
-		
-		//DebugLabel.SetText("R " + GameManager.SampleRawWallNoise(Controller.GlobalPosition).ToString() + "\nW " + GameManager.SampleWallNoise(Controller.GlobalPosition).ToString() + "\nX " + Controller.GlobalPosition.Y.ToString() + "\nY " + Controller.GlobalPosition.X.ToString() + "\nZ " + Controller.GlobalPosition.Z.ToString());
 	}
 
 	private void Body()
@@ -236,6 +236,11 @@ public partial class Player : Node3D
 		
 		while (GameManager.Raycast(Controller.GlobalPosition + Vector3.Up * (ColliderShape.Height - 0.1f), Controller.GlobalPosition + Vector3.Up * 0.1f).DidHit)
 			Controller.GlobalPosition += Vector3.Up * 0.1f;
+		
+		//Fullbody.GlobalPosition = Fullbody.GlobalPosition.Lerp(
+			//Controller.GlobalPosition + Vector3.Up * LandHang.Y + LandHang.XZ, DeltaTime * 16f);
+		//Fullbody.Rotation = Fullbody.Rotation.Lerp(new Vector3(0f, CamRotY.Rotation.Y, 0f), DeltaTime * 16f);
+		Fullbody.Rotation = new Vector3(0f, CamRotY.Rotation.Y, 0f);
 	}
 	
 	private void Camera()
@@ -245,7 +250,7 @@ public partial class Player : Node3D
 		{
 			CamRotY.Rotation = new Vector3(0f, CamRotY.Rotation.Y - Mathf.DegToRad(InputManager.MouseDelta().X * InputManager.Sensitivity), 0f);
 			CamRotX.Rotation = new Vector3(CamRotX.Rotation.X - Mathf.DegToRad(InputManager.MouseDelta().Y * InputManager.Sensitivity), 0f, 0f);
-			CamRotX.Rotation = new Vector3(Mathf.Clamp(CamRotX.Rotation.X, Mathf.DegToRad(-80f), Mathf.DegToRad(90f)), 0f, 0f);
+			CamRotX.Rotation = new Vector3(Mathf.Clamp(CamRotX.Rotation.X, Mathf.DegToRad(-75f), Mathf.DegToRad(85f)), 0f, 0f);
 		}
 		
 		// recoil
@@ -271,15 +276,14 @@ public partial class Player : Node3D
 		
 		// update position
 		PlayerView.GlobalPosition = PlayerView.GlobalPosition.Lerp(
-			CameraTargetPos.GlobalPosition + Vector3.Up * LandHang.Y + LandHang.XZ
-			, DeltaTime * 16f);
+			CameraTargetPos.GlobalPosition + Vector3.Up * LandHang.Y + LandHang.XZ, DeltaTime * 16f);
 		
 		// global camera movement
 		CameraMotionGlobal.Rotation = CameraMotionGlobal.Rotation.Lerp(
 			new Vector3(
-				Mathf.DegToRad(Velocity.XZ.Z * 0.333f + LandHang.XZ.Z * -8f), 
+				Mathf.DegToRad(Velocity.XZ.Z * (InputManager.Hold("sprint") ? 0.666f : 0.333f) + LandHang.XZ.Z * -8f), 
 				0f, 
-				Mathf.DegToRad(Velocity.XZ.X * -0.333f + LandHang.XZ.X * 8f)), DeltaTime * 8f);
+				Mathf.DegToRad(Velocity.XZ.X * (InputManager.Hold("sprint") ? -0.666f : -0.333f) + LandHang.XZ.X * 8f)), DeltaTime * 8f);
 		
 		// local camera movement
 		float YVelocity = Mathf.Clamp(Velocity.Y - (IsGrounded ? Force.GroundGravity : 0f), -10f, 10f) * 1.25f;

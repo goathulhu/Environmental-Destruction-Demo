@@ -3,19 +3,21 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://ddq0cbivwshw1"
-path="res://.godot/imported/SufferViewmodelRigBaseOverride.glb-7ce9a268eebdd0383a380a39bb7459b7.scn"
+uid="uid://cv3fiacirq8vy"
+path="res://.godot/imported/LegsTest1.glb-3ca981423b3bfcc5823a6ef7f40593fd.scn"
 
 [deps]
 
-source_file="res://Meshes/SufferViewmodelRigBaseOverride.glb"
-dest_files=["res://.godot/imported/SufferViewmodelRigBaseOverride.glb-7ce9a268eebdd0383a380a39bb7459b7.scn"]
+source_file="res://test/LegsTest1.glb"
+dest_files=["res://.godot/imported/LegsTest1.glb-3ca981423b3bfcc5823a6ef7f40593fd.scn"]
 
 [params]
 
 nodes/root_type=""
 nodes/root_name=""
 nodes/root_script=null
+mesh_library/use_node_names_as_mesh_names=false
+array_mesh/deduplicate_surfaces=true
 nodes/apply_root_scale=true
 nodes/root_scale=1.0
 nodes/import_as_skeleton_bones=false
@@ -40,3 +42,4 @@ materials/extract_path=""
 _subresources={}
 gltf/naming_version=2
 gltf/embedded_image_handling=1
+gltf/texture_map_mode=1

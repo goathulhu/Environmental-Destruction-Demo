@@ -9,14 +9,14 @@ public partial class DestructionManager : Node
 	
 	[Export] PackedScene[] Destructions;
 	
-	private ICollapsable[] CollapsableQueue = new ICollapsable[64];
+	private ICollapsable[] CollapsableQueue = new ICollapsable[512];
 	//private Collapsable[] CollapsableQueue = new Collapsable[64];
 	private bool HasQueuedCollapsables = false;
 	private int CurrentCollapsables = 0;
-	private PhysicsCollapsable[] PhysicsCollapsableQueue = new PhysicsCollapsable[64];
+	private PhysicsCollapsable[] PhysicsCollapsableQueue = new PhysicsCollapsable[512];
 	private bool HasQueuedPhysicsCollapsables = false;
 	private int CurrentPhysicsCollapsables = 0;
-	private (Vector3 At, string Type, float ScaleMult)[] DestructibleQueue = new (Vector3 At, string Type, float ScaleMult)[64];
+	private (Vector3 At, string Type, float ScaleMult)[] DestructibleQueue = new (Vector3 At, string Type, float ScaleMult)[512];
 	private bool HasQueuedDestructions = false;
 	private int CurrentDestructions = 0;
 	

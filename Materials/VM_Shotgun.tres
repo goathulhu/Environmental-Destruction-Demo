@@ -1,10 +1,12 @@
-[gd_resource type="ShaderMaterial" format=3 uid="uid://bshbrehgfeor0"]
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://bjt0413rfh2so"]
 
-[ext_resource type="Shader" uid="uid://chxebw77cgot6" path="res://Materials/Viewmodel.gdshader" id="1_4frs2"]
-[ext_resource type="Texture2D" uid="uid://6ya4uqgf7hyj" path="res://test/DefaultMaterial_2D_View.png" id="2_trecw"]
+[ext_resource type="Texture2D" uid="uid://6ya4uqgf7hyj" path="res://test/DefaultMaterial_2D_View.png" id="1_u3bjj"]
 
 [resource]
-render_priority = 0
-shader = ExtResource("1_4frs2")
-shader_parameter/TEXTURE = ExtResource("2_trecw")
-shader_parameter/FOV = 45.0
+albedo_texture = ExtResource("1_u3bjj")
+backlight_enabled = true
+backlight = Color(1, 1, 1, 1)
+use_z_clip_scale = true
+z_clip_scale = 0.1
+use_fov_override = true
+fov_override = 45.0

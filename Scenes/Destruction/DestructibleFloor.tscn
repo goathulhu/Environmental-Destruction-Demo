@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bcss20gyp0y5t"]
 
-[ext_resource type="Material" uid="uid://d3ndqccnd78is" path="res://Materials/Floor.tres" id="1_ooi0d"]
+[ext_resource type="Material" uid="uid://huprc8dfg4s" path="res://test/Noise.tres" id="1_luakj"]
 [ext_resource type="ArrayMesh" uid="uid://df8tkn4d5x037" path="res://Meshes/Destruction/DestructableSurfaceFloor.res" id="2_iwwfh"]
 [ext_resource type="Script" uid="uid://dw6xcayjubgke" path="res://Scripts/Destruction/Destructible.cs" id="3_1n5ja"]
 [ext_resource type="ArrayMesh" uid="uid://ddrrffc3o1fxf" path="res://Meshes/Destruction/FloorBeams.res" id="4_luakj"]
@@ -12,7 +12,7 @@ data = PackedVector3Array(0.92499995, -0.099999994, -2, 1.0749999, -0.099999994,
 [node name="DestructibleFloor" type="Node3D" unique_id=155879927]
 
 [node name="Floor" type="CSGMesh3D" parent="." unique_id=320254410]
-material_override = ExtResource("1_ooi0d")
+material_override = ExtResource("1_luakj")
 gi_mode = 0
 calculate_tangents = false
 use_collision = true

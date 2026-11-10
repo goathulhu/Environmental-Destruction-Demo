@@ -1,0 +1,17 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://huprc8dfg4s"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_chpm4"]
+noise_type = 2
+domain_warp_enabled = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_8af50"]
+noise = SubResource("FastNoiseLite_chpm4")
+seamless = true
+
+[resource]
+diffuse_mode = 3
+specular_mode = 2
+albedo_texture = SubResource("NoiseTexture2D_8af50")
+uv1_scale = Vector3(0.025, 0.025, 0.025)
+uv1_triplanar = true
+uv1_world_triplanar = true

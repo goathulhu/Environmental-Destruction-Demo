@@ -1,0 +1,17 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://dticx6vj1kglt"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_b1quj"]
+noise_type = 2
+domain_warp_enabled = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_w4gu4"]
+noise = SubResource("FastNoiseLite_b1quj")
+seamless = true
+
+[resource]
+albedo_color = Color(0.6651851, 0.6651851, 0.6651851, 1)
+albedo_texture = SubResource("NoiseTexture2D_w4gu4")
+backlight_enabled = true
+backlight = Color(1, 1, 1, 1)
+uv1_scale = Vector3(0.025, 0.025, 0.025)
+uv1_triplanar = true

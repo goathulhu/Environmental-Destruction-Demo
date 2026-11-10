@@ -7,7 +7,7 @@ uniform sampler2D TEXTURE : source_color, filter_linear, repeat_enable;
 //uniform sampler2D texture_normal : hint_roughness_normal, filter_nearest, repeat_enable;
 //uniform sampler2D texture_roughness : hint_roughness_r, filter_nearest, repeat_enable;
 
-uniform float FOV = 90.0f;
+uniform float FOV = 45.0f;
 
 void vertex()
 {
@@ -16,7 +16,7 @@ void vertex()
 	PROJECTION_MATRIX[1][1] = -onetanfov;
 	PROJECTION_MATRIX[0][0] = onetanfov / aspect;
 	POSITION = PROJECTION_MATRIX * MODELVIEW_MATRIX * vec4(VERTEX.xyz, 1.0);
-	//POSITION.z = mix(POSITION.z, 0.999, 0.1);
+	//POSITION.z = mix(POSITION.z, 0.5, 0.1);
 }
 
 void fragment()

@@ -1,17 +1,21 @@
 using Godot;
 using System;
 
+[Tool]
 public partial class ViewmodelOverride : Node3D
 {
 	private float DeltaTime = 0f;
 	
 	GameManager GameManager;
 	InputManager InputManager;
+	Console Console;
 	Player Player;
 	RandomNumberGenerator Rng;
 	Viewmodel Viewmodel;
 	
 	[Export] public string Id;
+	[ExportToolButton("Configure")]
+	public Callable ConfigureButton => Callable.From(Configure);
 	[ExportCategory("")]
 	[Export] public AnimationPlayer Animator;
 	[Export] public Skeleton3D Skeleton;
@@ -30,18 +34,19 @@ public partial class ViewmodelOverride : Node3D
 	
 	public override void _Ready()
 	{
+		if (Engine.IsEditorHint()) return;
+		
 		GameManager = (GameManager)GetTree().Root.FindChild("GameManager", true, false);
 		InputManager = GameManager.InputManager;
+		Console = GameManager.Console;
 		Player = GameManager.Player;
 		Rng = GameManager.Rng;
 		Viewmodel = GameManager.Viewmodel;
-		
-		LayerCount(8);
 	}
 	
 	public void LayerCount(int NewCount)
 	{
-		Array.Resize(ref Layers, Mathf.Clamp(NewCount, 1, 99));
+		Array.Resize(ref Layers, Mathf.Clamp(NewCount, 1, 100));
 		
 		for(int I = 0; I < Layers.Length; I++)
 		{
@@ -51,6 +56,8 @@ public partial class ViewmodelOverride : Node3D
 	
 	public override void _Process(double delta)
 	{
+		if (Engine.IsEditorHint()) return;
+		
 		DeltaTime = GameManager.GlobalDeltaTime;
 		
 		Vector3 InnRotation = Vector3.Zero;
@@ -80,9 +87,14 @@ public partial class ViewmodelOverride : Node3D
 		OutTransform.Position = OutPosition;
 	}
 	
-	public void Play(string Animation)
+	public void Play(string Track)
 	{
-		Animator.Play(Animation);
+		Animator.Play(Track);
+	}
+	
+	public void Play(string Track, float Lerp)
+	{
+		Animator.Play(Track, Lerp);
 	}
 	
 	public (Vector3 Position, Vector3 Rotation) GetBoneLocals(string BoneName)
@@ -136,5 +148,54 @@ public partial class ViewmodelOverride : Node3D
 		State.Right.Control = Mathf.Clamp(Skeleton.GetBonePosePosition(Skeleton.FindBone("control.R")).Y, 0f, 1f);
 		
 		return State;
+	}
+	
+	private void Configure()
+	{
+		if (!Engine.IsEditorHint()) return;
+		
+		var SceneRoot = EditorInterface.Singleton.GetEditedSceneRoot();
+		AnimationPlayer NewAnimator = (AnimationPlayer)this.FindChild("AnimationPlayer", true, false);
+		Skeleton3D NewSkeleton = (Skeleton3D)this.FindChild("Skeleton3D", true, false);
+		Node3D NewRigTransform = (Node3D)this.FindChild("Rig", true, false);
+		
+		Node3D NewOutTransform = new Node3D();
+		Node3D NewMidTransform = new Node3D();
+		Node3D NewInnTransform = new Node3D();
+		Node3D NewGet = new Node3D();
+		
+		if (Id.StripEdges() != "") this.Name = Id;
+		NewOutTransform.Name = "OutTransform";
+		NewMidTransform.Name = "MidTransform";
+		NewInnTransform.Name = "InnTransform";
+		NewGet.Name = "Get";
+		//NewAnimator.Name = "Animator";
+		//NewSkeleton.Name = "Skeleton";
+		//NewRigTransform.Name = "RigTransform";
+		
+		this.AddChild(NewOutTransform);
+		NewOutTransform.AddChild(NewMidTransform);
+		NewMidTransform.AddChild(NewInnTransform);
+		NewRigTransform.AddChild(NewGet);
+		
+		NewRigTransform.Reparent(NewInnTransform, true);
+		NewAnimator.Reparent(NewInnTransform, true);
+		
+		this.GetChild(0).QueueFree(); 
+		
+		NewOutTransform.Owner = SceneRoot;
+		NewMidTransform.Owner = SceneRoot;
+		NewInnTransform.Owner = SceneRoot;
+		NewGet.Owner = SceneRoot;
+		
+		this.Animator = NewAnimator;
+		this.Skeleton = NewSkeleton;
+		this.RigTransform = NewRigTransform;
+		this.OutTransform = NewOutTransform;
+		this.MidTransform = NewMidTransform;
+		this.InnTransform = NewInnTransform;
+		this.Get = NewGet;
+		
+		EditorInterface.Singleton.MarkSceneAsUnsaved();
 	}
 }
