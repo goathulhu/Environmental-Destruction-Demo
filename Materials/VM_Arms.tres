@@ -1,9 +1,23 @@
 [gd_resource type="StandardMaterial3D" format=3 uid="uid://ckvcofm47mx8b"]
 
+[ext_resource type="Material" uid="uid://pb1kwrvylgfb" path="res://Materials/VM_ArmsOutline.tres" id="1_n7g8v"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_b1quj"]
+noise_type = 2
+domain_warp_enabled = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_doo7v"]
+noise = SubResource("FastNoiseLite_b1quj")
+seamless = true
+
 [resource]
+next_pass = ExtResource("1_n7g8v")
 albedo_color = Color(0.735357, 0.735357, 0.735357, 1)
+albedo_texture = SubResource("NoiseTexture2D_doo7v")
 backlight_enabled = true
 backlight = Color(1, 1, 1, 1)
+uv1_scale = Vector3(0.025, 0.025, 0.025)
+uv1_triplanar = true
 use_z_clip_scale = true
 z_clip_scale = 0.1
 use_fov_override = true

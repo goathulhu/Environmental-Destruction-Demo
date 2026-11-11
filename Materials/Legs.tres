@@ -1,5 +1,7 @@
 [gd_resource type="StandardMaterial3D" format=3 uid="uid://dticx6vj1kglt"]
 
+[ext_resource type="Material" uid="uid://p6woxgsqbiwy" path="res://Materials/LegsOutline.tres" id="1_b1quj"]
+
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_b1quj"]
 noise_type = 2
 domain_warp_enabled = true
@@ -9,6 +11,7 @@ noise = SubResource("FastNoiseLite_b1quj")
 seamless = true
 
 [resource]
+next_pass = ExtResource("1_b1quj")
 albedo_color = Color(0.6651851, 0.6651851, 0.6651851, 1)
 albedo_texture = SubResource("NoiseTexture2D_w4gu4")
 backlight_enabled = true

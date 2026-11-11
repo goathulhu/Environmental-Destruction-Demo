@@ -2090,7 +2090,7 @@ target_node = NodePath("../../../../../../IkTarget")
 [node name="DummyItem" parent="Node/Viewport/Player/PlayerView/CameraMotionGlobal/CamRotY/CamRotX/CameraMotionLocal/Items" unique_id=1671970729 instance=ExtResource("17_lbihj")]
 
 [node name="Fullbody" type="Node3D" parent="Node/Viewport/Player/PlayerView" unique_id=2100678861 node_paths=PackedStringArray("HipPivot", "FootPivot", "FootLeft", "FootRight")]
-transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0, -1.75, 0)
+transform = Transform3D(1.25, 0, 0, 0, 1.25, 0, 0, 0, 1.25, 0, -1.75, 0)
 script = ExtResource("21_8e0uq")
 HipPivot = NodePath("HipPivot")
 FootPivot = NodePath("FootPivot")
@@ -2098,7 +2098,7 @@ FootLeft = NodePath("FootPivot/FootLeft")
 FootRight = NodePath("FootPivot/FootRight")
 
 [node name="HipPivot" type="Node3D" parent="Node/Viewport/Player/PlayerView/Fullbody" unique_id=541909005]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0.1)
 
 [node name="DummyLegs" type="Node3D" parent="Node/Viewport/Player/PlayerView/Fullbody/HipPivot" unique_id=356807623 node_paths=PackedStringArray("Skeleton", "LeftIk", "RightIk")]
 script = ExtResource("21_raj38")
