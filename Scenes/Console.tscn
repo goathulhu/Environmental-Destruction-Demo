@@ -1,0 +1,169 @@
+[gd_scene format=3 uid="uid://bt8cd6k18cdtm"]
+
+[ext_resource type="Script" uid="uid://bv84x6io0murf" path="res://Scripts/Console.cs" id="1_2gegc"]
+[ext_resource type="FontFile" uid="uid://mn2k1hm7pdr7" path="res://SourceCodePro-Bold.ttf" id="2_0jqip"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rajel"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.60038817, 0.60038817, 0.60038817, 0)
+border_color = Color(0.8001019, 0.8001019, 0.8001019, 0)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8r6kd"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.60038817, 0.60038817, 0.60038817, 0)
+border_color = Color(0.8001019, 0.8001019, 0.8001019, 0)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vvhu1"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.60038817, 0.60038817, 0.60038817, 0)
+border_color = Color(0.8001019, 0.8001019, 0.8001019, 0)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[node name="Console" type="Node" unique_id=575845307 node_paths=PackedStringArray("ConsoleControl", "TextLabel", "TextField")]
+script = ExtResource("1_2gegc")
+ConsoleControl = NodePath("Control")
+TextLabel = NodePath("Control/ConsoleLog")
+TextField = NodePath("Control/ConsoleLine")
+
+[node name="Control" type="Control" parent="." unique_id=703506506]
+layout_mode = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+grow_vertical = 0
+
+[node name="ConsoleLog" type="RichTextLabel" parent="Control" unique_id=1020158617]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = -1070.0
+offset_right = 527.9999
+offset_bottom = -46.0
+grow_horizontal = 2
+grow_vertical = 0
+focus_mode = 2
+theme_override_fonts/normal_font = ExtResource("2_0jqip")
+theme_override_fonts/bold_font = ExtResource("2_0jqip")
+theme_override_fonts/bold_italics_font = ExtResource("2_0jqip")
+theme_override_fonts/italics_font = ExtResource("2_0jqip")
+theme_override_fonts/mono_font = ExtResource("2_0jqip")
+theme_override_font_sizes/normal_font_size = 14
+theme_override_font_sizes/bold_font_size = 14
+theme_override_font_sizes/bold_italics_font_size = 14
+theme_override_font_sizes/italics_font_size = 14
+theme_override_font_sizes/mono_font_size = 14
+bbcode_enabled = true
+text = " - something
+ - something
+ - something
+ - something
+ - something
+ - something
+ - something
+ - something
+ - something
+ - something
+ - something
+ - something
+ - something
+ - something
+ - something
+ - something
+ - something
+ - something
+ - something
+ - something
+ - something
+ - something
+ - something
+ - something
+ - something
+ - something
+ - something
+ - something
+ - something
+ - something
+ - something
+ - something
+ - something
+ - something
+ - something
+ - something
+ - something
+ - something
+ - something
+ - something
+ - something
+ - something
+ - something
+ - something
+ - something
+ - something
+ - something
+ - something
+ - something
+ - something
+ - something
+ - something
+ - something
+ - something
+ - something
+ - something"
+scroll_active = false
+scroll_following = true
+autowrap_mode = 2
+selection_enabled = true
+
+[node name="ConsoleLine" type="TextEdit" parent="Control" unique_id=1883386820]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = -48.0
+offset_right = 528.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("2_0jqip")
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = SubResource("StyleBoxFlat_rajel")
+theme_override_styles/focus = SubResource("StyleBoxFlat_8r6kd")
+theme_override_styles/read_only = SubResource("StyleBoxFlat_vvhu1")
+placeholder_text = "_console_go_brrr_"
+caret_blink = true
+caret_move_on_right_click = false
+caret_multiple = false
+draw_control_chars = true
+draw_tabs = true
+draw_spaces = true
+text_direction = 1

@@ -3,11 +3,11 @@
 [ext_resource type="Script" uid="uid://qli55vtb1iau" path="res://Scripts/GameManager.cs" id="1_kldst"]
 [ext_resource type="Shader" uid="uid://c0rc4sgbb24ec" path="res://test/ColorFilter.gdshader" id="1_raj38"]
 [ext_resource type="Script" uid="uid://d1ndyjixdxmi7" path="res://Scripts/InputManager.cs" id="2_b2bpf"]
-[ext_resource type="Script" uid="uid://bv84x6io0murf" path="res://Scripts/Console.cs" id="3_7lihs"]
 [ext_resource type="Script" uid="uid://bo6kflv3e4i45" path="res://Scripts/Hud.cs" id="4_3so38"]
 [ext_resource type="FontFile" uid="uid://mn2k1hm7pdr7" path="res://SourceCodePro-Bold.ttf" id="4_71axn"]
 [ext_resource type="Script" uid="uid://ei0siodgdv8v" path="res://Scripts/ProjectileManager.cs" id="4_fgofq"]
 [ext_resource type="Script" uid="uid://bdusgovkq7fel" path="res://Scripts/Destruction/DestructionManager.cs" id="5_2irst"]
+[ext_resource type="PackedScene" uid="uid://bt8cd6k18cdtm" path="res://Scenes/Console.tscn" id="5_8e0uq"]
 [ext_resource type="Script" uid="uid://brveo5geg5ii2" path="res://Scripts/Player.cs" id="5_b2bpf"]
 [ext_resource type="PackedScene" uid="uid://co3bi2lwtmj1" path="res://Scenes/Projectile.tscn" id="8_3cx6b"]
 [ext_resource type="PackedScene" uid="uid://cu6qhyjnbaa04" path="res://Scenes/Destruction/DestructionBlob.tscn" id="8_4q8tf"]
@@ -36,45 +36,6 @@ shader_parameter/screen_texture = SubResource("ViewportTexture_3jf1l")
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_7etct"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_71axn"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rajel"]
-content_margin_left = 4.0
-content_margin_top = 4.0
-content_margin_right = 4.0
-content_margin_bottom = 4.0
-bg_color = Color(0.60038817, 0.60038817, 0.60038817, 0)
-border_color = Color(0.8001019, 0.8001019, 0.8001019, 0)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-corner_detail = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8r6kd"]
-content_margin_left = 4.0
-content_margin_top = 4.0
-content_margin_right = 4.0
-content_margin_bottom = 4.0
-bg_color = Color(0.60038817, 0.60038817, 0.60038817, 0)
-border_color = Color(0.8001019, 0.8001019, 0.8001019, 0)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-corner_detail = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vvhu1"]
-content_margin_left = 4.0
-content_margin_top = 4.0
-content_margin_right = 4.0
-content_margin_bottom = 4.0
-bg_color = Color(0.60038817, 0.60038817, 0.60038817, 0)
-border_color = Color(0.8001019, 0.8001019, 0.8001019, 0)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-corner_detail = 5
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8e0uq"]
 shader = ExtResource("11_tfod6")
@@ -796,131 +757,7 @@ target_position = Vector3(0, 0, 0)
 shape = SubResource("SphereShape3D_71axn")
 target_position = Vector3(0, 0, 0)
 
-[node name="Console" type="Node" parent="." unique_id=1820216061 node_paths=PackedStringArray("ConsoleControl", "TextLabel", "TextField")]
-script = ExtResource("3_7lihs")
-ConsoleControl = NodePath("Control")
-TextLabel = NodePath("Control/ConsoleLog")
-TextField = NodePath("Control/ConsoleLine")
-
-[node name="Control" type="Control" parent="Console" unique_id=764357153]
-layout_mode = 3
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-grow_vertical = 0
-
-[node name="ConsoleLog" type="RichTextLabel" parent="Console/Control" unique_id=1099880918]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = 16.0
-offset_top = -1070.0
-offset_right = 527.9999
-offset_bottom = -46.0
-grow_horizontal = 2
-grow_vertical = 0
-focus_mode = 2
-theme_override_fonts/normal_font = ExtResource("4_71axn")
-theme_override_fonts/bold_font = ExtResource("4_71axn")
-theme_override_fonts/bold_italics_font = ExtResource("4_71axn")
-theme_override_fonts/italics_font = ExtResource("4_71axn")
-theme_override_fonts/mono_font = ExtResource("4_71axn")
-theme_override_font_sizes/normal_font_size = 14
-theme_override_font_sizes/bold_font_size = 14
-theme_override_font_sizes/bold_italics_font_size = 14
-theme_override_font_sizes/italics_font_size = 14
-theme_override_font_sizes/mono_font_size = 14
-bbcode_enabled = true
-text = " - something
- - something
- - something
- - something
- - something
- - something
- - something
- - something
- - something
- - something
- - something
- - something
- - something
- - something
- - something
- - something
- - something
- - something
- - something
- - something
- - something
- - something
- - something
- - something
- - something
- - something
- - something
- - something
- - something
- - something
- - something
- - something
- - something
- - something
- - something
- - something
- - something
- - something
- - something
- - something
- - something
- - something
- - something
- - something
- - something
- - something
- - something
- - something
- - something
- - something
- - something
- - something
- - something
- - something
- - something
- - something"
-scroll_active = false
-scroll_following = true
-autowrap_mode = 2
-selection_enabled = true
-
-[node name="ConsoleLine" type="TextEdit" parent="Console/Control" unique_id=1794545755]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = 16.0
-offset_top = -48.0
-offset_right = 528.0
-offset_bottom = -16.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_fonts/font = ExtResource("4_71axn")
-theme_override_font_sizes/font_size = 14
-theme_override_styles/normal = SubResource("StyleBoxFlat_rajel")
-theme_override_styles/focus = SubResource("StyleBoxFlat_8r6kd")
-theme_override_styles/read_only = SubResource("StyleBoxFlat_vvhu1")
-placeholder_text = "_console_go_brrr_"
-caret_blink = true
-caret_move_on_right_click = false
-caret_multiple = false
-draw_control_chars = true
-draw_tabs = true
-draw_spaces = true
-text_direction = 1
+[node name="Console" parent="." unique_id=575845307 instance=ExtResource("5_8e0uq")]
 
 [node name="ProjectileManager" type="Node3D" parent="." unique_id=807729784]
 script = ExtResource("4_fgofq")
@@ -2098,7 +1935,7 @@ FootLeft = NodePath("FootPivot/FootLeft")
 FootRight = NodePath("FootPivot/FootRight")
 
 [node name="HipPivot" type="Node3D" parent="Node/Viewport/Player/PlayerView/Fullbody" unique_id=541909005]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0.1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95, 0.1)
 
 [node name="DummyLegs" type="Node3D" parent="Node/Viewport/Player/PlayerView/Fullbody/HipPivot" unique_id=356807623 node_paths=PackedStringArray("Skeleton", "LeftIk", "RightIk")]
 script = ExtResource("21_raj38")

@@ -57,8 +57,7 @@ draw_pass_1 = SubResource("QuadMesh_4f6p4")
 
 [node name="text" type="SpotLight3D" parent="." unique_id=2064899433]
 transform = Transform3D(0.7071068, 0, 0.7071068, 0, 1, 0, -0.7071068, 0, 0.7071068, 0, 2, 0)
-visible = false
-light_energy = 16.0
+light_energy = 0.25
 light_indirect_energy = 0.0
 light_volumetric_fog_energy = 0.0
 light_projector = ExtResource("1_1apju")
