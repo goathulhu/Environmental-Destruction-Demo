@@ -17,7 +17,7 @@
 [ext_resource type="Script" uid="uid://vcun4valwhi4" path="res://Scripts/Viewmodel/ViewmodelArms.cs" id="14_8r6kd"]
 [ext_resource type="Texture2D" uid="uid://ppgqg6m7g7fy" path="res://Materials/shotguninventoryimage2sliced.png" id="15_raj38"]
 [ext_resource type="Script" uid="uid://c1rr0320qo4qv" path="res://Scripts/Misc/SubViewportInput.gd" id="16_lbihj"]
-[ext_resource type="PackedScene" uid="uid://cxmjy245cmdyv" path="res://Scenes/Items/DummyItem.tscn" id="17_lbihj"]
+[ext_resource type="PackedScene" uid="uid://bs8jxnwiwdv7v" path="res://Scenes/Items/DemoShotgun.tscn" id="20_raj38"]
 [ext_resource type="PackedScene" uid="uid://cxj302nxplmnf" path="res://Scenes/DummyMap1.tscn" id="20_tfod6"]
 [ext_resource type="Script" uid="uid://c7s6drp57y8ax" path="res://Scripts/Fullbody.cs" id="21_8e0uq"]
 [ext_resource type="PackedScene" uid="uid://bdnvqtmedq1r8" path="res://Scenes/BaseOverride.tscn" id="21_lbihj"]
@@ -34,6 +34,9 @@ shader = ExtResource("1_raj38")
 shader_parameter/screen_texture = SubResource("ViewportTexture_3jf1l")
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_7etct"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_3f7vm"]
+viewport_path = NodePath("Node/Viewport")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_71axn"]
 
@@ -681,6 +684,7 @@ tonemap_mode = 2
 [node name="Game" type="Node3D" unique_id=1528719548]
 
 [node name="Screen" type="TextureRect" parent="." unique_id=1301500746]
+visible = false
 material = SubResource("ShaderMaterial_lbihj")
 anchors_preset = 15
 anchor_right = 1.0
@@ -688,6 +692,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("PlaceholderTexture2D_7etct")
+
+[node name="Screen2" type="TextureRect" parent="." unique_id=1506994553]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("ViewportTexture_3f7vm")
 
 [node name="InputManager" type="Node" parent="." unique_id=1961793797]
 script = ExtResource("2_b2bpf")
@@ -1924,7 +1936,7 @@ target_node = NodePath("../../../../../../IkTarget")
 
 [node name="Items" type="Node3D" parent="Node/Viewport/Player/PlayerView/CameraMotionGlobal/CamRotY/CamRotX/CameraMotionLocal" unique_id=1002647618]
 
-[node name="DummyItem" parent="Node/Viewport/Player/PlayerView/CameraMotionGlobal/CamRotY/CamRotX/CameraMotionLocal/Items" unique_id=1671970729 instance=ExtResource("17_lbihj")]
+[node name="DemoShotgun" parent="Node/Viewport/Player/PlayerView/CameraMotionGlobal/CamRotY/CamRotX/CameraMotionLocal/Items" unique_id=1671970729 instance=ExtResource("20_raj38")]
 
 [node name="Fullbody" type="Node3D" parent="Node/Viewport/Player/PlayerView" unique_id=2100678861 node_paths=PackedStringArray("HipPivot", "FootPivot", "FootLeft", "FootRight")]
 transform = Transform3D(1.25, 0, 0, 0, 1.25, 0, 0, 0, 1.25, 0, -1.75, 0)

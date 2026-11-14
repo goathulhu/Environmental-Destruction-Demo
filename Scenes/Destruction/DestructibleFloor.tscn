@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bcss20gyp0y5t"]
 
-[ext_resource type="Material" uid="uid://huprc8dfg4s" path="res://test/Noise.tres" id="1_luakj"]
+[ext_resource type="Material" uid="uid://d3ndqccnd78is" path="res://Materials/Floor.tres" id="1_luakj"]
 [ext_resource type="ArrayMesh" uid="uid://df8tkn4d5x037" path="res://Meshes/Destruction/DestructableSurfaceFloor.res" id="2_iwwfh"]
 [ext_resource type="Script" uid="uid://dw6xcayjubgke" path="res://Scripts/Destruction/Destructible.cs" id="3_1n5ja"]
 [ext_resource type="ArrayMesh" uid="uid://ddrrffc3o1fxf" path="res://Meshes/Destruction/FloorBeams.res" id="4_luakj"]

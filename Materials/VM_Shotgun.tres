@@ -4,8 +4,6 @@
 
 [resource]
 albedo_texture = ExtResource("1_u3bjj")
-backlight_enabled = true
-backlight = Color(1, 1, 1, 1)
 use_z_clip_scale = true
 z_clip_scale = 0.1
 use_fov_override = true
