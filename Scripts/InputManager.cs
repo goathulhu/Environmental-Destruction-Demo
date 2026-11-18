@@ -171,6 +171,7 @@ public partial class InputManager : Node
 			new InputBind("sprint", Key.Shift),
 			new InputBind("crouch", Key.C).AddBind(Key.Ctrl).AddBind(MouseButton.Xbutton2),
 			new InputBind("push", Key.E),
+			new InputBind("reload", Key.R),
 			new InputBind("tablet", Key.Tab).AddBind(Key.O),
 			
 			new InputBind("slot1", Key.Key1),

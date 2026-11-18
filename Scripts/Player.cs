@@ -341,6 +341,7 @@ public partial class Player : Node3D
 	
 	private void Actions()
 	{
+		/*
 		if (InputManager.Down("lmb"))
 		{
 			float PalletSpread = 10f;
@@ -371,6 +372,7 @@ public partial class Player : Node3D
 				DestructionManager.QueueDestruction(Hits);
 			}
 		}
+		*/
 	}
 	
 	private void Land()

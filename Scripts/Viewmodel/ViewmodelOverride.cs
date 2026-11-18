@@ -87,15 +87,11 @@ public partial class ViewmodelOverride : Node3D
 		OutTransform.Position = OutPosition;
 	}
 	
-	public void Play(string Track)
-	{
-		Animator.Play(Track);
-	}
+	public void ForcePlay(string Track) { Animator.Stop(); Animator.Play(Track); }
 	
-	public void Play(string Track, float Lerp)
-	{
-		Animator.Play(Track, Lerp);
-	}
+	public void Play(string Track) { Animator.Play(Track); }
+	
+	public void Play(string Track, float Lerp) { Animator.Play(Track, Lerp); }
 	
 	public (Vector3 Position, Vector3 Rotation) GetBoneLocals(string BoneName)
 	{
