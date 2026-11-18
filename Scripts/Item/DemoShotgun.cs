@@ -50,6 +50,8 @@ public partial class DemoShotgun : Weapon
 			DestructionManager.QueueDestruction(Result.Position, "DestructionBlob");
 			Override.ForcePlay("Shot");
 		}
+		
+		Console.Log(Name, "[...] and then, they said, it shot [...]");
 	}
 	
 	protected override void Animation()

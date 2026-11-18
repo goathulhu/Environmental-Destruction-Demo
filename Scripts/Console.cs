@@ -10,11 +10,19 @@ public partial class Console : Node
 	[Export] private Control ConsoleControl;
 	[Export] private RichTextLabel TextLabel;
 	[Export] private TextEdit TextField;
+	
+	[Export] private Control ToastControl;
+	[Export] private RichTextLabel ToastLabel;
 
 	private GameManager GameManager;
 	private Player Player;
-
+	
 	private string Content = "";
+	
+	private string ToastContent = "";
+	private bool HasToasted = false;
+	private float ToastFadeTimer = 0f;
+	private float ToastFadeDuration = 3f;
 
 	private string[] History = {"end of history uwu"};
 	private int LastHistoryPos;
@@ -47,6 +55,7 @@ public partial class Console : Node
 		
 		EndEdit();
 		UpdateLog();
+		ToastKill();
 	}
 	
 	public override void _Process(double delta)
@@ -89,6 +98,17 @@ public partial class Console : Node
 		CurrentLine = Mathf.Clamp(CurrentLine, 0, Mathf.Clamp(TextLabel.GetLineCount() - 13, 0, 2147483647));
 		
 		TextLabel.ScrollToLine(CurrentLine);
+		
+		if (HasToasted)
+		{
+			ToastFadeTimer -= DeltaTime;
+			
+			ToastControl.Modulate = new Color(1.0f, 1.0f, 1.0f, (ToastFadeTimer * (1f / ToastFadeDuration)));
+			
+			ToastLabel.ScrollToLine(CurrentLine);
+			
+			if (ToastFadeTimer <= 0f) ToastKill();
+		}
 	}
 
 	private void ConsoleIn()
@@ -144,9 +164,10 @@ public partial class Console : Node
 				NewContent = $"{Message}";
 				break;
 		}
-
+		
 		Content = Content + "\n" + NewContent;
-
+		ToastRefresh(NewContent);
+		
 		UpdateLog();
 	}
 
@@ -356,5 +377,24 @@ public partial class Console : Node
 	{
 		Array.Resize(ref History, History.Length + 1);
 		History[History.Length - 1] = Message;
+	}
+	
+	private void ToastRefresh(string NewContent)
+	{
+		if (ToastContent == "") ToastContent = "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+		ToastContent = ToastContent + "\n" + NewContent;
+		ToastLabel.Text = ToastContent;
+		ToastControl.Modulate = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+		ToastFadeTimer = ToastFadeDuration;
+		HasToasted = true;
+	}
+	
+	private void ToastKill()
+	{
+		ToastContent = "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+		ToastLabel.Text = "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+		ToastControl.Modulate = new Color(1.0f, 1.0f, 1.0f, 0.0f);
+		ToastFadeTimer = 0f;
+		HasToasted = false;
 	}
 }
