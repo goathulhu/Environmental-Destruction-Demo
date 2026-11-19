@@ -3,6 +3,7 @@ using System;
 
 public abstract partial class Weapon : Item
 {
+	// SHOOT BEHAVIOR
 	[Export] protected int ShotsPerShot = 1;
 	[Export] protected float Firerate = 1f;
 	[Export] protected float BurstFirerate = 1f;
@@ -20,6 +21,9 @@ public abstract partial class Weapon : Item
 	protected bool CanShoot = true;
 	protected bool IsReloading = false;
 	protected bool IsShotsQueued = false;
+	// RECOIL
+	[Export] protected float RecoilX = 0f;
+	[Export] protected float RecoilY = 0f;
 	
 	protected override void Update()
 	{
@@ -85,7 +89,11 @@ public abstract partial class Weapon : Item
 			Player.CameraOrientation.GlobalPosition, 
 			Player.CameraOrientation.GlobalPosition - Player.Director.GlobalBasis.Z * PalletRange);
 		if (Result.DidHit) DestructionManager.QueueDestruction(Result.Position, "DestructionBlob");
-		//Console.Log(Name, "...and then, johnathan said, the gun shot...");
+		
+		//Override.ForcePlay("Shot");
+		
+		Player.RecoilImpulse(new Vector2(RecoilX, RecoilY));
+		//Console.Log(Name, "[...] and then, they said, it shot [...]");
 		/*
 		float PalletSpread = 10f;
 		float PalletRange = 16f;

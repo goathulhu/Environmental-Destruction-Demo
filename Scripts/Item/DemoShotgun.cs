@@ -18,10 +18,8 @@ public partial class DemoShotgun : Weapon
 	Vector3 JitterRot = Vector3.Zero;
 	Vector3 JitterPosTarget = Vector3.Zero;
 	Vector3 JitterPos = Vector3.Zero;
-	float JumpHangRotTarget = 0f;
-	float JumpHangRot = 0f;
-	float JumpHangPosTarget = 0f;
-	float JumpHangPos = 0f;
+	Vector3 JumpHangRot = Vector3.Zero;
+	Vector3 JumpHangPos = Vector3.Zero;
 	
 	bool Sprinting = false;
 	
@@ -36,8 +34,8 @@ public partial class DemoShotgun : Weapon
 	
 	protected override void Shoot()
 	{
-		float PalletSpread = 10f;
-		float PalletRange = 16f;
+		float PalletSpread = 0f;//10f;
+		float PalletRange = 32f;
 		
 		Player.SpreadR.Rotation = new Vector3(0f, 0f, Mathf.DegToRad(Rng.RandfRange(0f, 360f)));
 		Player.Director.Rotation = new Vector3(Mathf.DegToRad(Rng.RandfRange(0f, PalletSpread)), 0f, 0f);
@@ -46,12 +44,13 @@ public partial class DemoShotgun : Weapon
 			Player.CameraOrientation.GlobalPosition, 
 			Player.CameraOrientation.GlobalPosition - Player.Director.GlobalBasis.Z * PalletRange);
 		if (Result.DidHit)
-		{
 			DestructionManager.QueueDestruction(Result.Position, "DestructionBlob");
-			Override.ForcePlay("Shot");
-		}
 		
-		Console.Log(Name, "[...] and then, they said, it shot [...]");
+		Override.ForcePlay("Shot");
+		
+		Player.RecoilImpulse(new Vector2(RecoilX, RecoilY));
+		//Viewmodel.Recoil(new Vector3(RNG.RandfRange(-0.015f, 0.015f), 0f, CurrentWeapon.RecoilImpulse.Length() * 0.025f), new Vector3(CurrentWeapon.RecoilImpulse.Y * 2.5f, CurrentWeapon.RecoilImpulse.X * -2.5f, CurrentWeapon.RecoilImpulse.X * -2.5f));
+		//Viewmodel.Recoil(new Vector3(0f, 0f, 0.125f), new Vector3(10f, -5f, -5f));
 	}
 	
 	protected override void Animation()
@@ -91,8 +90,20 @@ public partial class DemoShotgun : Weapon
 		
 		CrouchLerp = Mathf.Lerp(CrouchLerp, (Player.IsCrouching ? 1f : 0f), DeltaTime * 12f);
 		
-		LRMoveHang = Mathf.Lerp(LRMoveHang, Player.InputDirection.X, DeltaTime * 12f);
-		FBMoveHang = Mathf.Lerp(FBMoveHang, Player.InputDirection.Y, DeltaTime * 12f);
+		LRMoveHang = Mathf.Lerp(LRMoveHang, Player.InputDirection.X, DeltaTime * (Player.WalkTimer > 0f ? 8f : 1f));
+		FBMoveHang = Mathf.Lerp(FBMoveHang, Player.InputDirection.Y, DeltaTime * (Player.WalkTimer > 0f ? 8f : 1f));
+		
+		float YVelocity = Mathf.Clamp(Player.Velocity.Y - (Player.IsGrounded ? Player.Force.GroundGravity : 0f), -6.66f, 10f);
+		JumpHangRot = new Vector3(
+			Mathf.Lerp(JumpHangRot.X, Mathf.DegToRad(YVelocity * -0.75f), DeltaTime * 8f), 
+			0f, 
+			0f
+		);
+		JumpHangPos = new Vector3(
+			0f, 
+			Mathf.Lerp(JumpHangPos.Y, YVelocity * -0.005f, DeltaTime * 16f), 
+			Mathf.Lerp(JumpHangPos.Z, Mathf.Abs(YVelocity) * 0.002f, DeltaTime * 12f)
+		);
 		
 		// breathe
 		BreatheTimer += DeltaTime * 1.5f;
@@ -112,17 +123,8 @@ public partial class DemoShotgun : Weapon
 			JitterTimer = 0.125f;
 		}
 		
-		float YVelocity = Mathf.Clamp(Player.Velocity.Y - (Player.IsGrounded ? Player.Force.GroundGravity : 0f), -6.66f, 10f);
-		
 		JitterRot = JitterRot.Lerp(JitterRotTarget, DeltaTime * 8f);
 		JitterPos = JitterPos.Lerp(JitterPosTarget, DeltaTime * 8f);
-		
-		// jump/fall
-		JumpHangRotTarget = Mathf.Lerp(JumpHangRotTarget, Mathf.DegToRad(YVelocity * -1.8f), DeltaTime * 16f);
-		JumpHangPosTarget = Mathf.Lerp(JumpHangPosTarget, YVelocity * -0.009f, DeltaTime * 32f);
-		
-		JumpHangRot = Mathf.Lerp(JumpHangRot, JumpHangRotTarget, DeltaTime * 32f);
-		JumpHangPos = Mathf.Lerp(JumpHangPos, JumpHangPosTarget, DeltaTime * 32f);
 		
 		// pivot
 		Override.Get.Transform = Override.Skeleton.GetBoneGlobalPose(Override.Skeleton.FindBone("viewmodel_pivot"));
@@ -130,17 +132,22 @@ public partial class DemoShotgun : Weapon
 		Override.RigTransform.Position = -ViewmodelPivot.Position;
 		Override.Layers[0].Inn.Position = ViewmodelPivot.Position;
 		
+		// jump/fall
+		Override.Layers[5].Inn.Rotation = Override.Layers[5].Inn.Rotation.Lerp(JumpHangRot, DeltaTime * 32f);
+		
+		Override.Layers[5].Mid.Position = Override.Layers[5].Mid.Position.Lerp(JumpHangPos, DeltaTime * 32f);
+		
 		// up/down perspective
 		Override.Layers[1].Out.Position = Override.Layers[1].Out.Position.Lerp(new Vector3(
 			0f, 
-			Sprinting ? 0f : Mathf.Abs(Mathf.DegToRad(Player.CurrentCameraRot.X)) * -0.0333f, 
-			Sprinting ? 0f : Mathf.Abs(Mathf.DegToRad(Player.CurrentCameraRot.X)) * 0.1f
+			Sprinting ? 0f : Mathf.Abs(Mathf.DegToRad(Player.CurrentCameraRot.X)) * (Player.CurrentCameraRot.X > 0 ? -0.03f : -0.025f), 
+			Sprinting ? 0f : Mathf.Abs(Mathf.DegToRad(Player.CurrentCameraRot.X)) * (Player.CurrentCameraRot.X > 0 ? 0.125f : 0.125f)
 		), DeltaTime * 4f);
 			
 		Override.Layers[1].Out.Rotation = Override.Layers[1].Out.Rotation.Lerp(new Vector3(
 			0f, 
 			0f,
-			Sprinting ? 0f : Mathf.DegToRad(Player.CurrentCameraRot.X) * (Player.CurrentCameraRot.X > 0 ? 0f : -0.2f)
+			Sprinting ? 0f : Mathf.DegToRad(Player.CurrentCameraRot.X) * (Player.CurrentCameraRot.X > 0 ? 0f : -0.25f)
 		), DeltaTime * 4f);
 		
 		// breathing

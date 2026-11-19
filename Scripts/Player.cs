@@ -169,7 +169,7 @@ public partial class Player : Node3D
 		if (Velocity.XZ.IsZeroApprox()) Velocity.XZActual = Vector3.Zero;
 		else Velocity.XZActual = Velocity.XZ.Normalized();
 		
-		if (CanMove && IsGrounded) Step();
+		if (CanMove && IsGrounded && IsWalkingInput) Step();
 		
 		if (Controller.IsOnFloor())
 		{
@@ -249,8 +249,7 @@ public partial class Player : Node3D
 		if (CanLook)
 		{
 			CamRotY.Rotation = new Vector3(0f, CamRotY.Rotation.Y - Mathf.DegToRad(InputManager.MouseDelta().X * InputManager.Sensitivity), 0f);
-			CamRotX.Rotation = new Vector3(CamRotX.Rotation.X - Mathf.DegToRad(InputManager.MouseDelta().Y * InputManager.Sensitivity), 0f, 0f);
-			CamRotX.Rotation = new Vector3(Mathf.Clamp(CamRotX.Rotation.X, Mathf.DegToRad(-75f), Mathf.DegToRad(85f)), 0f, 0f);
+			CamRotX.Rotation = new Vector3(Mathf.Clamp(CamRotX.Rotation.X - Mathf.DegToRad(InputManager.MouseDelta().Y * InputManager.Sensitivity), Mathf.DegToRad(-75f), Mathf.DegToRad(85f)), 0f, 0f);
 		}
 		
 		// recoil
@@ -382,7 +381,7 @@ public partial class Player : Node3D
 		LandHang.YTarget = Mathf.Abs(Velocity.Y * Velocity.Y) * -0.01f;
 	}
 	
-	void RecoilImpulse(Vector2 Impulse)
+	public void RecoilImpulse(Vector2 Impulse)
 	{
 		TargetRecoil += Impulse;
 	}

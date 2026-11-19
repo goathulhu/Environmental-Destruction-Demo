@@ -144,6 +144,7 @@ omni_range = 16.0
 
 [node name="OmniLight3D3" type="OmniLight3D" parent="CustomLighting" unique_id=230306229]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 7.5, 0)
+visible = false
 light_indirect_energy = 0.0
 light_specular = 0.0
 light_bake_mode = 0
@@ -156,6 +157,7 @@ omni_range = 16.0
 
 [node name="OmniLight3D7" type="OmniLight3D" parent="CustomLighting" unique_id=1685793813]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.5, -16)
+visible = false
 light_indirect_energy = 0.0
 light_specular = 0.0
 light_bake_mode = 0
